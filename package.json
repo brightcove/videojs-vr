@@ -7,24 +7,26 @@
   },
   "contributors": [
     {
-      "name": "James Broberg",
-      "email": "james.broberg@metacdn.com"
+      "name": "Joe Wilson",
+      "email": "joe@cantina.co"
+    },
+    {
+      "name": "Marcela Rodriguez",
+      "email": "marcela@cantina.co"
     }
   ],
   "engines": {
-    "node": ">= 0.8.0"
+    "node": ">= 5.0.0"
   },
   "scripts": {
-    "test": "grunt qunit"
+    "build": "browserify -g browserify-css player.js > dist/player.js"
   },
   "devDependencies": {
-    "grunt": "~0.4.4",
-    "grunt-bowercopy": "^1.2.3",
-    "grunt-contrib-clean": "~0.4.0",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-jshint": "~0.6.0",
-    "grunt-contrib-qunit": "~0.2.0",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-contrib-watch": "~0.4.0"
+    "browserify": "13.0.0",
+    "browserify-css": "^0.9.1",
+    "three": "0.75.0",
+    "video.js": "5.8.8",
+    "webvr-boilerplate": "0.4.1",
+    "webvr-polyfill": "^0.9.2"
   }
 }
