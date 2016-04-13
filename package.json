@@ -24,6 +24,7 @@
   "devDependencies": {
     "browserify": "13.0.0",
     "browserify-css": "^0.9.1",
+    "native-promise-only": "^0.8.1",
     "three": "0.75.0",
     "video.js": "5.8.8",
     "webvr-boilerplate": "0.4.1",

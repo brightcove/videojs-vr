@@ -1,5 +1,5 @@
 require('./player.css');
-
+require('native-promise-only');
 var videojs = require('video.js');
 global.THREE = require('three');
 global.WebVRConfig = require('./webvr.config.js');
