@@ -1,6 +1,6 @@
 module.exports = {
   // Forces availability of VR mode, even for non-mobile devices.
-  FORCE_ENABLE_VR: true, // Default: false.
+  FORCE_ENABLE_VR: false, // Default: false.
 
   // Complementary filter coefficient. 0 for accelerometer, 1 for gyro.
   K_FILTER: 0.98, // Default: 0.98.
