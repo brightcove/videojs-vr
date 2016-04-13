@@ -1,16 +1,20 @@
 <!doctype html>
 <html>
-<head><title>VR Plugin Example</title></head>
+<head>
+  <title>VR Plugin Example</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
 <link href="./dist/player.css" rel="stylesheet">
 <body>
   <div id="container">
-    <video id="video-container" class="video-js vjs-default-skin" width="640" height="360" preload="auto" crossOrigin="anonymous" data-setup="{}" controls>
+    <video id="video-container" class="video-js vjs-default-skin" width="640" height="360" preload="auto" crossorigin="anonymous" data-setup="{}" controls>
       <source src="http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" type="video/mp4">
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
     </video>
-    <!-- <p class="vjs-no-js">
-      To view this video please enable JavaScript, and consider upgrading to a web browser that
-      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-    </p> -->
   </div>
   <script src="./dist/player.js"></script>
 </body>
