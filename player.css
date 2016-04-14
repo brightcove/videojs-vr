@@ -15,6 +15,18 @@
   cursor: -webkit-grabbing;
 }
 
+/* Full screen resizing with CSS. Using !important here to override buggy resizing in video.js */
+
+.video-js.video-container-dimensions#video-container.vjs-fullscreen canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.video-js.video-container-dimensions#video-container:not(.vjs-fullscreen) canvas {
+  width: 640px !important;
+  height: 360px !important;
+}
+
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
 .video-js .vjs-big-play-button {
