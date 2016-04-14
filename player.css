@@ -10,9 +10,9 @@
   top: 50%;
   left: 50%;
   margin: -2.1em 0 0 -2.1em;
-  background: url(/assets/360-video.svg);
   height: 4.2em;
   width: 4.2em;
+  background: url(/assets/360-video.svg);
   background-size: contain;
   -webkit-filter: drop-shadow( -5px -5px 5px #000 );
             filter: drop-shadow( -5px -5px 5px #000 );
@@ -21,6 +21,12 @@
   -moz-transition: opacity .25s ease-in-out;
   -webkit-transition: opacity .25s ease-in-out;
   -o-transition: all 0s;
+}
+
+.video-js.vjs-fullscreen .vjs-big-play-button {
+  margin: -4em 0 0 -4em;
+  height: 8em;
+  width: 8em;
 }
 
 .video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus {
