@@ -65,8 +65,15 @@
   padding: 0;
 }
 
+.video-js .vjs-time-control.vjs-time-divider {
+  padding: 0 4px;
+  margin: 0;
+  width: 12px;
+  min-width: 0px;
+}
+
 .video-js .vjs-remaining-time.vjs-time-control.vjs-control {
-  visibility: hidden;
+  display: none;
 }
 
 /* Show progress bar at top of control bar, with custom progress fill color */
@@ -97,7 +104,7 @@
   display: none;
 }
 
-.video-js .vjs-progress-holder .vjs-play-progress {
+.video-js .vjs-progress-holder .vjs-play-progress, .video-js .vjs-volume-level {
   height: 100%;
   background-color: #D12D81;
 }
@@ -117,4 +124,14 @@
 
 .video-js.vjs-has-started {
   font-size: 13px;
+}
+
+/* Control bar padding/margin adjustments */
+
+.video-js .vjs-play-control {
+  margin-right: -20px;
+}
+
+.vjs-control.vjs-button.vjs-volume-menu-button-horizontal {
+  margin-right: -2px;
 }
