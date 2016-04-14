@@ -166,7 +166,7 @@ module.exports = function(vjs) {
                 role    : 'button',
                 'aria-live' : 'polite', // let the screen reader user know that the text of the button may change
                 tabIndex  : 0
-            })
+            });
 
             vjs.registerComponent('ProjectionSelection', ProjectionSelection);
 
@@ -243,7 +243,6 @@ module.exports = function(vjs) {
 
                 return items;
             };
-
 
         }
         initMenu();

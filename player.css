@@ -1,1 +1,41 @@
 @import "node_modules/video.js/dist/video-js.css";
+
+.video-js.vjs-playing canvas {
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+.video-js .vjs-big-play-button {
+  top: 50%;
+  left: 50%;
+  margin: -2.1em 0 0 -2.1em;
+  background: url(/assets/360-video.svg);
+  height: 4.2em;
+  width: 4.2em;
+  background-size: contain;
+  -webkit-filter: drop-shadow( -5px -5px 5px #000 );
+            filter: drop-shadow( -5px -5px 5px #000 );
+  border: none;
+  transition: opacity .25s ease-in-out;
+  -moz-transition: opacity .25s ease-in-out;
+  -webkit-transition: opacity .25s ease-in-out;
+  -o-transition: all 0s;
+}
+
+.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus {
+  background-color: transparent;
+  transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -webkit-transition: opacity 3s ease-in-out;
+}
+
+.video-js .vjs-big-play-button:before {
+  content: '';
+}
+
+.vjs-controls-disabled .vjs-big-play-button, .vjs-has-started .vjs-big-play-button, .vjs-using-native-controls .vjs-big-play-button {
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+}

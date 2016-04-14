@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "browserify -g browserify-css player.js > dist/player.js",
-    "serve": "node ./server.js"
+    "serve": "npm run build && node ./server.js"
   },
   "devDependencies": {
     "browserify": "13.0.0",
