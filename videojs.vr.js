@@ -9,9 +9,6 @@
  */
 module.exports = function(vjs) {
 
-    /**
-     * Copies properties from one or more objects onto an original.
-     */
     var extend = function(obj /*, arg1, arg2, ... */) {
         var arg, i, k;
         for (i = 1; i < arguments.length; i++) {
@@ -107,17 +104,15 @@ module.exports = function(vjs) {
             var manager = new WebVRManager(renderer, effect, {hideButton: false});
 
             renderedCanvas = renderer.domElement;
-            renderedCanvas.style.width = "inherit";
-            renderedCanvas.style.height = "inherit";
 
             container.insertBefore(renderedCanvas, container.firstChild);
             videoEl.style.display = "none";
 
             // Handle window resizes
             function onWindowResize() {
-                  camera.aspect = window.innerWidth / window.innerHeight;
-                  camera.updateProjectionMatrix();
-                  effect.setSize( window.innerWidth, window.innerHeight );
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                effect.setSize( window.innerWidth, window.innerHeight );
             }
 
 			window.addEventListener('resize', onWindowResize, false);
