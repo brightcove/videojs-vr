@@ -72640,7 +72640,7 @@ module.exports = WebVRPolyfill;
 },{"./base.js":14,"./cardboard-vr-display.js":17,"./display-wrappers.js":20,"./mouse-keyboard-vr-display.js":25,"es6-promise":2}],37:[function(require,module,exports){
 (function (global){
 require('native-promise-only');
-var videojs = require('video.js');
+var videojs = global.videojs = require('video.js');
 global.THREE = require('three');
 global.WebVRConfig = require('./webvr.config.js');
 var WebVrPolyfill = require('webvr-polyfill/src/webvr-polyfill');
@@ -72649,9 +72649,6 @@ require('three/examples/js/controls/VRControls.js');
 require('three/examples/js/effects/VREffect.js');
 require('webvr-boilerplate');
 require('./videojs.vr.js')(videojs);
-videojs( document.getElementsByClassName('video-js')[0], {
-    techOrder: ['html5']
-}).vr({projection: "Sphere"});
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"./videojs.vr.js":38,"./webvr.config.js":39,"native-promise-only":3,"three":6,"three/examples/js/controls/VRControls.js":4,"three/examples/js/effects/VREffect.js":5,"video.js":7,"webvr-boilerplate":10,"webvr-polyfill/src/webvr-polyfill":36}],38:[function(require,module,exports){

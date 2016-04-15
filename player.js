@@ -1,5 +1,5 @@
 require('native-promise-only');
-var videojs = require('video.js');
+var videojs = global.videojs = require('video.js');
 global.THREE = require('three');
 global.WebVRConfig = require('./webvr.config.js');
 var WebVrPolyfill = require('webvr-polyfill/src/webvr-polyfill');
@@ -8,6 +8,3 @@ require('three/examples/js/controls/VRControls.js');
 require('three/examples/js/effects/VREffect.js');
 require('webvr-boilerplate');
 require('./videojs.vr.js')(videojs);
-videojs( document.getElementsByClassName('video-js')[0], {
-    techOrder: ['html5']
-}).vr({projection: "Sphere"});

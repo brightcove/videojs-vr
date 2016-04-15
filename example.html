@@ -17,5 +17,10 @@
     </video>
   </div>
   <script src="./dist/player.js"></script>
+  <script>
+  videojs( document.getElementsByClassName('video-js')[0], {
+      techOrder: ['html5']
+  }).vr({projection: "Sphere"});
+  </script>
 </body>
 </html>
