@@ -30931,7 +30931,28 @@ THREE.WebGLState = function ( gl, extensions, paramThreeToGL ) {
 
 	};
 
+	var userAgentParser = require('ua-parser-js');
+	var userAgentBrowser = new userAgentParser().getBrowser();
+	var userAgentIE11 = userAgentBrowser.name == "IE" && userAgentBrowser.major == 11;
+
 	this.texImage2D = function () {
+
+		if ( userAgentIE11 ) {
+			function videoToCanvas(resource, width, height) {
+				var canvas = document.createElement("canvas");
+				canvas.width = width;
+				canvas.height = height;
+				var draw = canvas.getContext("2d");
+				draw.drawImage(resource, 0, 0, width, height);
+			}
+
+			// The WebGL implementation in IE11 does not support passing an
+			// HTMLVideoElement to texImage2D. Instead, we convert the frame
+			// to a canvas texture.
+			if ( arguments.length == 6 && arguments[5] instanceof HTMLVideoElement) {
+				arguments[5] = videoToCanvas(arguments[5], 1920, 1080);
+			}
+		}
 
 		try {
 
