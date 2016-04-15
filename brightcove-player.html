@@ -14,7 +14,7 @@
   <script>
     var win;
     document.getElementsByTagName('iframe')[0].onload = function() {
-        win = document.querySelector("iframe").iframeTag.contentWindow;
+        win = document.querySelector("iframe").contentWindow;
         updateInPage();
     };
     function updateInPage() {

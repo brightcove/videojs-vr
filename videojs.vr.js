@@ -302,6 +302,7 @@ module.exports = function(vjs) {
   vjs.plugin('listenForChange', function() {
     var myPlayer = this;
     var changeVideoFunc = function(evt) {
+      console.log("Changing video!", evt);
       if(evt.data.command === "changeVideo") {
         myPlayer.src({
           src: evt.data.src,
@@ -312,8 +313,8 @@ module.exports = function(vjs) {
     window.addEventListener("message", changeVideoFunc);
   });
 
-  vjs( document.getElementsByClassName('video-js')[0], {
-      techOrder: ['html5']
-  }).vr({projection: "Sphere"});
+  // vjs( document.getElementsByClassName('video-js')[0], {
+  //     techOrder: ['html5']
+  // }).vr({projection: "Sphere"});
 
 };
