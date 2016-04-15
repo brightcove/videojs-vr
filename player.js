@@ -1,6 +1,6 @@
 require('native-promise-only');
 var videojs = require('video.js');
-global.THREE = require('three');
+global.THREE = require('./three.js');
 global.WebVRConfig = require('./webvr.config.js');
 var WebVrPolyfill = require('webvr-polyfill/src/webvr-polyfill');
 new WebVrPolyfill();
