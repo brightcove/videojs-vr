@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+<head>
+  <title>VR Plugin Example - Brightcove Player</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+  <iframe src="http://players.brightcove.net/4846977590001/rklMmCdR_default/index.html" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
+  <p>
+    Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://solutions.brightcove.com/abroadstone/media/bears360.mp4" autofocus="">
+  </p>
+  <p><button onclick="updateInPage()">Update Video</button></p>
+  <script>
+    var win;
+    document.getElementsByTagName('iframe')[0].onload = function() {
+        win = document.querySelector("iframe").contentWindow;
+        updateInPage();
+    };
+    function updateInPage() {
+      if (win) {
+        var changeVideoMessage = {command: "changeVideo", src: '', type: ''};
+        var videoUrl = document.getElementById('video_url_input').value;
+        if (videoUrl.split('?')[0].endsWith('.m3u8')) {
+         src = {src: videoUrl, type: "application/x-mpegURL"};
+        } else if (videoUrl.split('?')[0].endsWith('.mp4')){
+         src = {src: videoUrl, type: "video/mp4"};
+        }
+        win.postMessage(changeVideoMessage, "http://players.brightcove.net");
+      }
+    }
+ </script>
+</body>
+</html>

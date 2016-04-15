@@ -13,12 +13,12 @@
 
 /* Full screen resizing with CSS. Using !important here to override buggy resizing in video.js */
 
-.video-js.video-container-dimensions#video-container.vjs-fullscreen canvas {
+.video-js.vjs-fullscreen canvas {
   width: 100%;
   height: 100%;
 }
 
-.video-js.video-container-dimensions#video-container:not(.vjs-fullscreen) canvas {
+.video-js:not(.vjs-fullscreen) canvas {
   width: 640px !important;
   height: 360px !important;
 }
