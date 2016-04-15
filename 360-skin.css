@@ -31,7 +31,7 @@
   margin: -2.1em 0 0 -2.1em;
   height: 4.2em;
   width: 4.2em;
-  background: url(/assets/360-video.svg);
+  background: url(https://cdn.rawgit.com/brightcove/videojs-vr/master/assets/360-video.svg);
   background-size: contain;
   -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
             filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
