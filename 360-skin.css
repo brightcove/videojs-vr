@@ -1,0 +1,145 @@
+.video-js.vjs-playing canvas {
+  cursor: move;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.video-js.vjs-playing canvas:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+/* Full screen resizing with CSS. Using !important here to override buggy resizing in video.js */
+
+.video-js.video-container-dimensions#video-container.vjs-fullscreen canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.video-js.video-container-dimensions#video-container:not(.vjs-fullscreen) canvas {
+  width: 640px !important;
+  height: 360px !important;
+}
+
+/* Play button is the 360 video icon, fades out in 3 seconds on play */
+
+.video-js .vjs-big-play-button {
+  top: 50%;
+  left: 50%;
+  margin: -2.1em 0 0 -2.1em;
+  height: 4.2em;
+  width: 4.2em;
+  background: url(https://cdn.rawgit.com/brightcove/videojs-vr/master/assets/360-video.svg);
+  background-size: contain;
+  -webkit-filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+            filter: drop-shadow( -1.5px -1.5px 1.5px #000 );
+  border: none;
+  transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -webkit-transition: opacity 3s ease-in-out;
+  -o-transition: all 0s;
+}
+
+.video-js.vjs-fullscreen .vjs-big-play-button {
+  margin: -4em 0 0 -4em;
+  height: 8em;
+  width: 8em;
+}
+
+.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus {
+  background-color: transparent;
+  transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -webkit-transition: opacity 3s ease-in-out;
+}
+
+.video-js .vjs-big-play-button:before {
+  content: '';
+}
+
+.vjs-controls-disabled .vjs-big-play-button, .vjs-has-started .vjs-big-play-button, .vjs-using-native-controls .vjs-big-play-button {
+  font-size: 30px;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* Display played time and time duration */
+
+.video-js .vjs-current-time, .vjs-no-flex .vjs-current-time, .video-js .vjs-duration, .vjs-no-flex .vjs-duration, .vjs-time-divider {
+  display: inline;
+  padding: 0;
+}
+
+.video-js .vjs-time-control.vjs-time-divider {
+  padding: 0 4px;
+  margin: 0;
+  width: 12px;
+  min-width: 0px;
+}
+
+.video-js .vjs-remaining-time.vjs-time-control.vjs-control {
+  display: none;
+}
+
+/* Show progress bar at top of control bar, with custom progress fill color */
+
+.video-js .vjs-progress-control {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 5px;
+  top: -5px;
+}
+
+.video-js .vjs-progress-control:hover {
+  height: 15px;
+  top: -15px;
+}
+
+.vjs-progress-control .vjs-progress-holder {
+  margin: 0;
+}
+
+.video-js .vjs-progress-control .vjs-load-progress, .video-js .vjs-progress-control .vjs-progress-holder {
+  height: 100%;
+}
+
+.video-js .vjs-play-progress:before {
+  display: none;
+}
+
+.video-js .vjs-progress-holder .vjs-play-progress, .video-js .vjs-volume-level {
+  height: 100%;
+  background-color: #D12D81;
+}
+
+/* Move full screen button to the right since progress bar can no longer push it to the right */
+
+.video-js .vjs-fullscreen-control {
+  position: absolute;
+  right: 0;
+}
+
+/* Darken control bar and increase height */
+
+.vjs-has-started .vjs-control-bar {
+  background-color: rgba(24, 23, 17, 0.72);
+}
+
+.video-js.vjs-has-started {
+  font-size: 13px;
+}
+
+/* Control bar padding/margin adjustments */
+
+.video-js .vjs-play-control {
+  margin-right: -20px;
+}
+
+.vjs-control.vjs-button.vjs-volume-menu-button-horizontal {
+  margin-right: -2px;
+}
