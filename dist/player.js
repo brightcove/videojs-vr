@@ -51407,7 +51407,7 @@ module.exports = function(vjs) {
 
   vjs( document.getElementsByClassName('video-js')[0], {
       techOrder: ['html5']
-  }).vr({projection: "Sphere"});
+  });
 
 };
 
