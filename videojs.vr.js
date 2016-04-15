@@ -299,4 +299,8 @@ module.exports = function(vjs) {
   // register the plugin with video.js
   vjs.plugin('vr', plugin);
 
+  vjs( document.getElementsByClassName('video-js')[0], {
+      techOrder: ['html5']
+  }).vr({projection: "Sphere"});
+
 };
