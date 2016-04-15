@@ -20,11 +20,11 @@
     "node": ">= 5.0.0"
   },
   "scripts": {
-    "watch-js": "watchify player.js -d -p [minifyify --map player.js.map --output dist/player.js.map] -o dist/player.js",
-    "watch-css": "watchify -g browserify-css player-skin.js -d -p [minifyify --map playerskin.js.map --output dist/playerskin.js.map]  -o dist/player-skin.js -v",
+    "watch-js": "watchify player.js -o dist/player.js",
+    "watch-css": "watchify -g browserify-css player-skin.js -o dist/player-skin.js -v",
     "watch": "npm run watch-js & npm run watch-css",
-    "build-js": "browserify player.js -d -p [minifyify --no-map] > dist/player.js",
-    "build-css": "browserify -g browserify-css player-skin.js -d -p [minifyify --no-map] > dist/player-skin.js",
+    "build-js": "browserify player.js > dist/player.js",
+    "build-css": "browserify -g browserify-css player-skin.js > dist/player-skin.js",
     "build": "npm run build-js & npm run build-css",
     "serve": "npm run watch & nodemon ./server.js"
   },
@@ -33,7 +33,6 @@
     "browserify-css": "0.9.1",
     "express": "4.13.4",
     "express-http-proxy": "0.6.0",
-    "minifyify": "^7.3.3",
     "native-promise-only": "0.8.1",
     "nodemon": "1.9.1",
     "three": "0.75.0",
