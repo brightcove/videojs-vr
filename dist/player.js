@@ -50566,6 +50566,19 @@ module.exports = function(vjs) {
   // register the plugin with video.js
   vjs.plugin('vr', plugin);
 
+  vjs.plugin('listenForChange', function() {
+    var myPlayer = this;
+    var changeVideoFunc = function(evt) {
+      if(evt.data.command === "changeVideo") {
+        myPlayer.src({
+          src: evt.data.src,
+          type: evt.data.type
+        });
+      };
+    };
+    window.addEventListener("message", changeVideoFunc);
+  });
+
   vjs( document.getElementsByClassName('video-js')[0], {
       techOrder: ['html5']
   }).vr({projection: "Sphere"});
