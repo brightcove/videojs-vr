@@ -30944,6 +30944,7 @@ THREE.WebGLState = function ( gl, extensions, paramThreeToGL ) {
 				canvas.height = height;
 				var draw = canvas.getContext("2d");
 				draw.drawImage(resource, 0, 0, width, height);
+				return canvas;
 			}
 
 			// The WebGL implementation in IE11 does not support passing an
