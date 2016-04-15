@@ -8,6 +8,6 @@ require('three/examples/js/controls/VRControls.js');
 require('three/examples/js/effects/VREffect.js');
 require('webvr-boilerplate');
 require('./videojs.vr.js')(videojs);
-videojs( 'video', {
+videojs( document.getElementsByClassName('video-js')[0], {
     techOrder: ['html5']
 }).vr({projection: "Sphere"});
