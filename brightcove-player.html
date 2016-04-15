@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+  <title>VR Plugin Example - Brightcove Player</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+  <iframe src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.html" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
+  <p><button onclick="playVideo()" class="BCL-btn">Play Video</button></p>
+  <script>
+    var iframeTag = document.querySelector("iframe"),
+        win = iframeTag.contentWindow;
+
+    function playVideo(){
+        win.postMessage("playVideo", "solutions.brightcove.com/abroadstone/media/bears360.mp4");
+    }
+  </script>
+</body>
+</html>

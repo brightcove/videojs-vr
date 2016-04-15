@@ -3,13 +3,27 @@
 
 A video.js plugin that turns a video element into a HTML5 Panoramic 360 video player. Project video onto different shapes. Optionally supports Oculus Rift.
 
-[View Demo](http://stage.metacdn.com/r/v/vorjbrr/Er866Cp)
+This is built to work with the Brightcove Player, which includes video.js.
 
 ## Getting Started
 
-Run `npm install`, then `npm run build`.
+To test, make sure you have npm installed, and run:
+
+```
+npm install
+npm run copy-videojs
+npm run serve
+```
+
+To build:
+```
+npm run build (and npm run copy-videojs if not done previously)
+```
+
+To test locally, visit localhost:3000/example.html. To test the generated brightcove player, visit localhost:3000/brightcove-player.html.
 
 Host on a HTTP Server that supports byte range requests if you want the seek bar to work (e.g. Apache).
+
 
 ## Oculus Rift Support
 This plugin leverages the [webvr-boilerplate](https://github.com/borismus/webvr-boilerplate) project (which in turn uses [webvr-polyfill](https://github.com/borismus/webvr-polyfill) and [three.js](https://github.com/mrdoob/three.js)) to create a 'responsive VR' experience across multiple devices.
