@@ -69,6 +69,6 @@
 
 /* Hide extra full screen button */
 
-.webvr-button[title="Fullscreen mode"] {
+/*.webvr-button[title="Fullscreen mode"] {
   display: none !important;
-}
+}*/
