@@ -143,3 +143,9 @@
 .vjs-control.vjs-button.vjs-volume-menu-button-horizontal {
   margin-right: -2px;
 }
+
+/* Hide extra full screen button */
+
+.webvr-button {
+  display: none;
+}
