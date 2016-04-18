@@ -296,6 +296,12 @@ module.exports = function(vjs) {
         };
     };
 
+  //Set crossorigin anonymous attribute on video element
+  var videoElems = document.getElementsByTagName('video');
+  if (videoElems.length) {
+    videoElems[0].setAttribute('crossorigin', 'anonymous');
+  }
+
   // register the plugin with video.js
   vjs.plugin('vr', plugin);
 
