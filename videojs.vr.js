@@ -298,7 +298,9 @@ module.exports = function(vjs) {
 
   //Set crossorigin anonymous attribute on video element
   var videoElem = document.getElementsByTagName('video')[0];
-  videoElem.setAttribute('crossorigin', 'anonymous');
+  if (videoElem) {
+    videoElem.setAttribute('crossorigin', 'anonymous');
+  }
 
   // register the plugin with video.js
   vjs.plugin('vr', plugin);
@@ -306,7 +308,6 @@ module.exports = function(vjs) {
   vjs.plugin('listenForChange', function() {
     var myPlayer = this;
     var changeVideoFunc = function(evt) {
-      console.log("Changing video!", evt);
       if(evt.data.command === "changeVideo") {
         myPlayer.src({
           src: evt.data.src,
