@@ -26,6 +26,7 @@
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
 .video-js .vjs-big-play-button {
+  font-size: 30px;
   top: 50%;
   left: 50%;
   margin: -2.1em 0 0 -2.1em;
@@ -147,5 +148,5 @@
 /* Hide extra full screen button */
 
 .webvr-button {
-  display: none;
+  display: none !important;
 }
