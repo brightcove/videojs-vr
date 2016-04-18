@@ -6,7 +6,7 @@
   <meta content="utf-8" http-equiv="encoding">
 </head>
 <body>
-  <iframe src="http://players.brightcove.net/4846977590001/rklMmCdR_default/index.html?videoId=4847412949001" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
+  <iframe src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.html" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
   <p>
     Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://solutions.brightcove.com/abroadstone/media/bears360.mp4" autofocus="">
   </p>
@@ -19,12 +19,12 @@
     };
     function updateInPage() {
       if (win) {
-        var changeVideoMessage = {command: "changeVideo", src: '', type: ''};
         var videoUrl = document.getElementById('video_url_input').value;
+        var changeVideoMessage = {command: "changeVideo", src: videoUrl, type: ''};
         if (videoUrl.split('?')[0].endsWith('.m3u8')) {
-         src = {src: videoUrl, type: "application/x-mpegURL"};
+         changeVideoMessage.type = "application/x-mpegURL";
         } else if (videoUrl.split('?')[0].endsWith('.mp4')){
-         src = {src: videoUrl, type: "video/mp4"};
+         changeVideoMessage.type = "video/mp4";
         }
         win.postMessage(changeVideoMessage, "http://players.brightcove.net");
       }
