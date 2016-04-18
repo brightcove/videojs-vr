@@ -298,7 +298,7 @@ module.exports = function(vjs) {
 
   //Set crossorigin anonymous attribute on video element
   var videoElems = document.getElementsByTagName('video');
-  if (videoElems.length) {
+  if (videoElems.length && videoElems[0].nodeType === 1) {
     videoElems[0].setAttribute('crossorigin', 'anonymous');
   }
 
@@ -313,7 +313,6 @@ module.exports = function(vjs) {
           src: evt.data.src,
           type: evt.data.type
         });
-        myPlayer.setAttribute('crossorigin', 'anonymous');
       };
     };
     window.addEventListener("message", changeVideoFunc);
