@@ -102,5 +102,3 @@ module.exports=function(e){var t=function(e){var t,n,o;for(n=1;n<arguments.lengt
 module.exports={FORCE_ENABLE_VR:!1,K_FILTER:.98,PREDICTION_TIME_S:.04,TOUCH_PANNER_DISABLED:!1,YAW_ONLY:!0,MOUSE_KEYBOARD_CONTROLS_DISABLED:!1,DEFER_INITIALIZATION:!1,ENABLE_DEPRECATED_API:!1,BUFFER_SCALE:1,DIRTY_SUBMIT_FRAME_BINDINGS:!1};
 },{}]},{},[35])
 
-
-//# sourceMappingURL=player.js.map
