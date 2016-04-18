@@ -51388,6 +51388,10 @@ module.exports = function(vjs) {
         };
     };
 
+  //Set crossorigin anonymous attribute on video element
+  var videoElem = document.getElementsByTagName('video')[0];
+  videoElem.setAttribute('crossorigin', 'anonymous');
+
   // register the plugin with video.js
   vjs.plugin('vr', plugin);
 
@@ -51400,6 +51404,7 @@ module.exports = function(vjs) {
           src: evt.data.src,
           type: evt.data.type
         });
+        myPlayer.setAttribute('crossorigin', 'anonymous');
       };
     };
     window.addEventListener("message", changeVideoFunc);
