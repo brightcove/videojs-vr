@@ -17,6 +17,9 @@
         win = document.querySelector("iframe").contentWindow;
         updateInPage();
     };
+    String.prototype.endsWith = function(suffix) { /* For IE11 */
+      this.substr(-suffix.length) === suffix;
+    };
     function updateInPage() {
       if (win) {
         var videoUrl = document.getElementById('video_url_input').value;
