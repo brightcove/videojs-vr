@@ -11,26 +11,27 @@ module.exports = function(renderer) {
     var WebGLContext = renderer.getContext();
 
     // Cache the canvas so we don't have to recreate it for each frame
-    var videojsCanvas = document.createElement("canvas");
-    var videojsCanvasRenderingContext = videojsCanvas.getContext("2d");
+    var canvas = document.createElement("canvas");
+    var renderingContext = canvas.getContext("2d");
 
     // Override the texImage2D function to convert each video frame
     // to a HTMLCanvasElement
     override(WebGLContext, 'texImage2D', before(function() {
-      function videoToCanvas(resource, width, height) {
-        videojsCanvas.width = width;
-        videojsCanvas.height = height;
-
-        videojsCanvasRenderingContext.drawImage(resource, 0, 0, width, height);
-        return videojsCanvas;
-      }
-
       if ( arguments.length == 6 && arguments[5] instanceof HTMLVideoElement) {
         arguments[5] = videoToCanvas(arguments[5], arguments[5].videoWidth, arguments[5].videoHeight);
       }
 
       return arguments;
     }));
+
+    function videoToCanvas(videoElement, width, height) {
+      canvas.width = width;
+      canvas.height = height;
+
+      renderingContext.drawImage(videoElement, 0, 0, width, height);
+
+      return canvas;
+    }
 
   }
 
