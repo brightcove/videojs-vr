@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+  <title>VR Plugin Example - Brightcove Player</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+  <video data-account="4846977590001"
+  data-player="rklMmCdR"
+  data-embed="default"
+  class="video-js"
+  controls
+  style="width: 640px; height: 360px;"></video>
+  <script src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.min.js"></script>
+  <p>
+    Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="./assets/plane360.mp4" autofocus="">
+  </p>
+  <p><button onclick="updateInPage()">Update Video</button></p>
+  <script>
+    String.prototype.endsWith = function(suffix) { /* For IE11 */
+      this.substr(-suffix.length) === suffix;
+    };
+    function updateInPage() {
+      var type = '';
+      var videoUrl = document.getElementById('video_url_input').value;
+      if (videoUrl.split('?')[0].endsWith('.m3u8')) {
+       changeVideoMessage.type = "application/x-mpegURL";
+      } else if (videoUrl.split('?')[0].endsWith('.mp4')){
+       changeVideoMessage.type = "video/mp4";
+      }
+      videojs(document.getElementsByClassName('video-js')[0]).src({
+        src: videoUrl,
+        type: type
+      });
+    }
+    updateInPage();
+ </script>
+</body>
+</html>

@@ -13,7 +13,7 @@ module.exports = {
 
   // Enable yaw panning only, disabling roll and pitch. This can be useful
   // for panoramas with nothing interesting above or below.
-  YAW_ONLY: true, // Default: false.
+  YAW_ONLY: false, // Default: false.
 
   // To disable keyboard and mouse controls, if you want to use your own
   // implementation.
