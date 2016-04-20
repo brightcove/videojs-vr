@@ -100,11 +100,6 @@
                 // Handle VRDisplay objects. (Exposing as a global variable for use elsewhere.)
                 vrDisplay = displays.length[0];
              });
-             if (settings.orientation) {
-               camera.up = new THREE.Vector3(0,0,1);
-               camera.quaternion.setFromAxisAngle(new THREE.Vector3
-                 (settings.orientation.x, settings.orientation.y, settings.orientation.z), Math.PI / 2);
-             }
 
              renderer = new THREE.WebGLRenderer({
                  devicePixelRatio: window.devicePixelRatio,
@@ -337,8 +332,6 @@
             type: evt.data.type
           });
         }
-      } else if (evt.data.command === "changeOrientation") {
-        camera.quaternion.setFromAxisAngle(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z), Math.PI / 2);
       }
     };
     window.addEventListener("message", changeVideoFunc);
