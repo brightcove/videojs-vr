@@ -1,7 +1,5 @@
 @import "node_modules/video.js/dist/video-js.css";
 
-/* Cursor grabs video when hovering over or holding down */
-
 @import "./360-skin.css";
 
 /* The following CSS is for testing, is similar to what is already included in Brightcove studio */

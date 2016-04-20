@@ -10,17 +10,21 @@
   <p>
     Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" autofocus="">
   </p>
+  <p id="orientation"></p>
   <p><button onclick="updateInPage()">Update Video</button></p>
+  <p><button onclick="updateOrientation()">Set Current Orientation as Initial</button></p>
   <script>
-    var win;
-    document.getElementsByTagName('iframe')[0].onload = function() {
-        win = document.querySelector("iframe").contentWindow;
-        updateInPage();
-    };
     String.prototype.endsWith = function(suffix) { /* For IE11 */
       this.substr(-suffix.length) === suffix;
     };
-    function updateInPage() {
+    var win;
+    var orientationDisplay = document.getElementById('orientation');
+    document.getElementsByTagName('iframe')[0].onload = function() {
+        win = document.querySelector("iframe").contentWindow;
+        updateSource();
+        updateOrientation();
+    };
+    function updateSource() {
       if (win) {
         var videoUrl = document.getElementById('video_url_input').value;
         var changeVideoMessage = {command: "changeVideo", src: videoUrl, type: ''};
@@ -28,8 +32,19 @@
          changeVideoMessage.type = "application/x-mpegURL";
         } else if (videoUrl.split('?')[0].endsWith('.mp4')){
          changeVideoMessage.type = "video/mp4";
+       } else if (!isNaN(videoUrl)) { // treat the input as a videoId
+          changeVideoMessage.type = "id";
         }
         win.postMessage(changeVideoMessage, "http://players.brightcove.net");
+      }
+    }
+    function updateOrientation() {
+      if (win) {
+        win.postMessage({command: "changeOrientation"}, "http://players.brightcove.net");
+        setTimeout(function() {
+          console.log(win.selectedOrientation);
+          orientationDisplay.innerHTML = 'Initial orientation: ' + win.selectedOrientation;
+        }, 2000);
       }
     }
  </script>

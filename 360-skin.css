@@ -1,3 +1,5 @@
+/* Cursor grabs video when hovering over or holding down */
+
 .video-js.vjs-playing canvas {
   cursor: move;
   cursor: -moz-grab;

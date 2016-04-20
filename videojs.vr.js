@@ -28,6 +28,9 @@ module.exports = function(vjs) {
         projection: "Sphere"
     },
 
+    camera,
+    scene,
+
     /**
      * Initializes the plugin
      */
@@ -41,8 +44,8 @@ module.exports = function(vjs) {
             movieMaterial,
             movieGeometry,
             movieScreen,
-            controls3d,
-            scene;
+            controls3d;
+            //scene; //Make accessible to other plugins
 
         function changeProjection(projection) {
             var position = {x:0, y:0, z:0 };
@@ -71,7 +74,7 @@ module.exports = function(vjs) {
                 videoTexture,
                 requestId,
                 renderer,
-                camera,
+                //camera, //Set outside so it can be updated with plugins
                 renderedCanvas;
 
             camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -87,7 +90,7 @@ module.exports = function(vjs) {
 
             movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
             changeProjection(current_proj);
-            camera.position.set(0,0,0);
+            camera.position.set(settings.x || 0,settings.y || 0,settings.z || 0);
 
             renderer = new THREE.WebGLRenderer({
                 devicePixelRatio: window.devicePixelRatio,
@@ -309,11 +312,21 @@ module.exports = function(vjs) {
     var myPlayer = this;
     var changeVideoFunc = function(evt) {
       if(evt.data.command === "changeVideo") {
-        myPlayer.src({
-          src: evt.data.src,
-          type: evt.data.type
-        });
-      };
+        if (evt.data.type === "id") {
+          myPlayer.catalog.getVideo(videoUrl, function(error, video) {
+            myPlayer.catalog.load(video);
+          });
+        }
+        else {
+          myPlayer.src({
+            src: evt.data.src,
+            type: evt.data.type
+          });
+        }
+      } else if (evt.data.command === "changeOrientation") {
+        camera.lookAt(scene.orientation);
+        window.selectedOrientation = scene.orientation;
+      }
     };
     window.addEventListener("message", changeVideoFunc);
   });
