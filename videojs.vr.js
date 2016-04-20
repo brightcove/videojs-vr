@@ -28,6 +28,8 @@
          projection: "Sphere"
      },
 
+     camera,
+
      /**
       * Initializes the plugin
       */
@@ -71,7 +73,7 @@
                  videoTexture,
                  requestId,
                  renderer,
-                 camera,
+                 //camera,
                  renderedCanvas;
 
              camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
