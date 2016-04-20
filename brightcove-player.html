@@ -28,7 +28,7 @@
          changeVideoMessage.type = "application/x-mpegURL";
         } else if (videoUrl.split('?')[0].endsWith('.mp4')){
          changeVideoMessage.type = "video/mp4";
-       } else if (!isNaN(videoUrl)) { // treat the input as a videoId
+        } else if (!isNaN(videoUrl)) { // treat the input as a videoId
           changeVideoMessage.type = "id";
         }
         win.postMessage(changeVideoMessage, "http://players.brightcove.net");

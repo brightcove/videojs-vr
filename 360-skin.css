@@ -51,7 +51,7 @@
   width: 8em;
 }
 
-.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus {
+.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus, .video-js .vjs-big-play-button:active, .video-js .vjs-big-play-button:focus, .video-js:active .vjs-big-play-button {
   background-color: transparent;
   transition: opacity 3s ease-in-out;
   -moz-transition: opacity 3s ease-in-out;

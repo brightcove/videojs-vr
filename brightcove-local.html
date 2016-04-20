@@ -21,18 +21,25 @@
     String.prototype.endsWith = function(suffix) { /* For IE11 */
       this.substr(-suffix.length) === suffix;
     };
+    var myPlayer = videojs(document.getElementsByClassName('video-js')[0]);
     function updateInPage() {
       var type = '';
       var videoUrl = document.getElementById('video_url_input').value;
       if (videoUrl.split('?')[0].endsWith('.m3u8')) {
-       changeVideoMessage.type = "application/x-mpegURL";
+       type = "application/x-mpegURL";
       } else if (videoUrl.split('?')[0].endsWith('.mp4')){
-       changeVideoMessage.type = "video/mp4";
+       type = "video/mp4";
       }
-      videojs(document.getElementsByClassName('video-js')[0]).src({
-        src: videoUrl,
-        type: type
-      });
+      if (isNaN(videoUrl)) { // treat the input as a videoId
+        myPlayer.src({
+          src: videoUrl,
+          type: type
+        });
+      } else {
+         myPlayer.catalog.getVideo(videoUrl, function(error, video) {
+           myPlayer.catalog.load(video);
+         });
+      }
     }
     updateInPage();
  </script>
