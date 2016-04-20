@@ -325,7 +325,7 @@ module.exports = function(vjs) {
         }
       } else if (evt.data.command === "changeOrientation") {
         camera.lookAt(scene.orientation);
-        window.selectedOrientation = scene.orientation;
+        console.log("Orientation", scene.orientation);
       }
     };
     window.addEventListener("message", changeVideoFunc);
