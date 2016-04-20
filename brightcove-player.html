@@ -20,7 +20,7 @@
       this.substr(-suffix.length) === suffix;
     };
     var win;
-    var orientationInputs = document.getElementByTagName("input");
+    var orientationInputs = document.getElementsByTagName("input");
     document.getElementsByTagName('iframe')[0].onload = function() {
         win = document.querySelector("iframe").contentWindow;
         updateSource();
@@ -41,11 +41,11 @@
       }
     }
     function updateOrientation() {
-      if (win) {
+      if (win && orientationInputs.length === 3) {
         win.postMessage({
           command: "changeOrientation",
           x: orientationInputs[0].value,
-          y: orientationInputs[1].value
+          y: orientationInputs[1].value,
           z: orientationInputs[2].value
         }, "http://players.brightcove.net");
       }
