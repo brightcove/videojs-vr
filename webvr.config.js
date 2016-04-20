@@ -28,7 +28,7 @@ module.exports = {
 
   // Scales the recommended buffer size reported by WebVR, which can improve
   // performance.
-  BUFFER_SCALE: 1.0, // Default: 1.0.
+  BUFFER_SCALE: 0.5, // Default: 1.0.
 
   // Allow VRDisplay.submitFrame to change gl bindings, which is more
   // efficient if the application code will re-bind its resources on the
