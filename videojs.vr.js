@@ -29,6 +29,7 @@
      },
 
      camera,
+     vrDisplay,
 
      /**
       * Initializes the plugin
@@ -90,6 +91,15 @@
              movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
              changeProjection(current_proj);
              camera.position.set(0,0,0);
+             /* Set VRDisplay (vrInput in VRControls) so custom rotations can be applied */
+             navigator.getVRDisplays().then(function (displays) {
+                if (!displays.length) {// WebVR is supported, no VRDisplays are found.
+                  console.log("No displays");
+                  return;
+                }
+                // Handle VRDisplay objects. (Exposing as a global variable for use elsewhere.)
+                vrDisplay = displays.length[0];
+             });
              if (settings.orientation) {
                camera.up = new THREE.Vector3(0,0,1);
                camera.quaternion.setFromAxisAngle(new THREE.Vector3
@@ -317,7 +327,7 @@
     var changeVideoFunc = function(evt) {
       if(evt.data.command === "changeVideo") {
         if (evt.data.type === "id") {
-          myPlayer.catalog.getVideo(videoUrl, function(error, video) {
+          myPlayer.catalog.getVideo(evt.data.src, function(error, video) {
             myPlayer.catalog.load(video);
           });
         }
@@ -328,7 +338,6 @@
           });
         }
       } else if (evt.data.command === "changeOrientation") {
-        camera.up = new THREE.Vector3(0,0,1);
         camera.quaternion.setFromAxisAngle(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z), Math.PI / 2);
       }
     };
