@@ -90,8 +90,8 @@ module.exports = function(vjs) {
             movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
             changeProjection(current_proj);
             camera.position.set(0,0,0);
-            if settings.orientation {
-              camera.lookAt(new THREE.Vector3(settings.orientation.x, settings.orientation.y, settings.orientation.z);
+            if (settings.orientation) {
+              camera.lookAt(new THREE.Vector3(settings.orientation.x, settings.orientation.y, settings.orientation.z));
             }
             renderer = new THREE.WebGLRenderer({
                 devicePixelRatio: window.devicePixelRatio,
@@ -325,7 +325,7 @@ module.exports = function(vjs) {
           });
         }
       } else if (evt.data.command === "changeOrientation") {
-        camera.lookAt(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z);
+        camera.lookAt(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z));
       }
     };
     window.addEventListener("message", changeVideoFunc);
