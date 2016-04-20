@@ -323,9 +323,11 @@ module.exports = function(vjs) {
             type: evt.data.type
           });
         }
-      } else if (evt.data.command === "changeOrientation") {
-        camera.lookAt(scene.orientation);
+      } else if (evt.data.command === "changeOrientation" && scene) {
         console.log("Orientation", scene.orientation);
+        camera.lookAt(scene.orientation);
+      } else {
+        console.log("scene", scene);
       }
     };
     window.addEventListener("message", changeVideoFunc);
