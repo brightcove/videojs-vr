@@ -29,7 +29,6 @@ module.exports = function(vjs) {
     },
 
     camera,
-    scene,
 
     /**
      * Initializes the plugin
@@ -45,7 +44,7 @@ module.exports = function(vjs) {
             movieGeometry,
             movieScreen,
             controls3d;
-            //scene; //Make accessible to other plugins
+            scene;
 
         function changeProjection(projection) {
             var position = {x:0, y:0, z:0 };
@@ -90,8 +89,10 @@ module.exports = function(vjs) {
 
             movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
             changeProjection(current_proj);
-            camera.position.set(settings.x || 0,settings.y || 0,settings.z || 0);
-
+            camera.position.set(0,0,0);
+            if settings.orientation {
+              camera.lookAt(new THREE.Vector3(settings.orientation.x, settings.orientation.y, settings.orientation.z);
+            }
             renderer = new THREE.WebGLRenderer({
                 devicePixelRatio: window.devicePixelRatio,
                 alpha: false,
@@ -323,11 +324,8 @@ module.exports = function(vjs) {
             type: evt.data.type
           });
         }
-      } else if (evt.data.command === "changeOrientation" && scene) {
-        console.log("Orientation", scene.orientation);
-        camera.lookAt(scene.orientation);
-      } else {
-        console.log("scene", scene);
+      } else if (evt.data.command === "changeOrientation") {
+        camera.lookAt(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z);
       }
     };
     window.addEventListener("message", changeVideoFunc);

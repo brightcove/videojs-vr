@@ -10,6 +10,9 @@
   <p>
     Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" autofocus="">
   </p>
+  <input type="number" name="x" value="1" />
+  <input type="number" name="y" value="1" />
+  <input type="number" name="z" value="1" />
   <p><button onclick="updateInPage()">Update Video</button></p>
   <p><button onclick="updateOrientation()">Set Current Orientation as Initial</button></p>
   <script>
@@ -17,6 +20,7 @@
       this.substr(-suffix.length) === suffix;
     };
     var win;
+    var orientationInputs = document.getElementByTagName("input");
     document.getElementsByTagName('iframe')[0].onload = function() {
         win = document.querySelector("iframe").contentWindow;
         updateSource();
@@ -38,7 +42,12 @@
     }
     function updateOrientation() {
       if (win) {
-        win.postMessage({command: "changeOrientation"}, "http://players.brightcove.net");
+        win.postMessage({
+          command: "changeOrientation",
+          x: orientationInputs[0].value,
+          y: orientationInputs[1].value
+          z: orientationInputs[2].value
+        }, "http://players.brightcove.net");
       }
     }
  </script>
