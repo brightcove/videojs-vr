@@ -91,6 +91,7 @@
              changeProjection(current_proj);
              camera.position.set(0,0,0);
              if (settings.orientation) {
+               camera.up = new THREE.Vector3(0,0,1);
                camera.lookAt(new THREE.Vector3(settings.orientation.x, settings.orientation.y, settings.orientation.z));
              }
 
@@ -326,6 +327,7 @@
           });
         }
       } else if (evt.data.command === "changeOrientation") {
+        camera.up = new THREE.Vector3(0,0,1);
         camera.lookAt(new THREE.Vector3(evt.data.x, evt.data.y, evt.data.z));
       }
     };
