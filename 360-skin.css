@@ -20,6 +20,11 @@
   height: 100%;
 }
 
+.video-js:not(.vjs-fullscreen), .video-js:not(.vjs-fullscreen) canvas {
+  width: 640px !important;
+  height: 360px !important;
+}
+
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
 .video-js .vjs-big-play-button {
