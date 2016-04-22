@@ -28,9 +28,6 @@
          projection: "Sphere"
      },
 
-     camera,
-     vrDisplay,
-
      /**
       * Initializes the plugin
       */
@@ -74,7 +71,7 @@
                  videoTexture,
                  requestId,
                  renderer,
-                 //camera,
+                 camera,
                  renderedCanvas;
 
              camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -91,15 +88,6 @@
              movieMaterial = new THREE.MeshBasicMaterial( { map: videoTexture, overdraw: true, side:THREE.DoubleSide } );
              changeProjection(current_proj);
              camera.position.set(0,0,0);
-             /* Set VRDisplay (vrInput in VRControls) so custom rotations can be applied */
-             navigator.getVRDisplays().then(function (displays) {
-                if (!displays.length) {// WebVR is supported, no VRDisplays are found.
-                  console.log("No displays");
-                  return;
-                }
-                // Handle VRDisplay objects. (Exposing as a global variable for use elsewhere.)
-                vrDisplay = displays.length[0];
-             });
 
              renderer = new THREE.WebGLRenderer({
                  devicePixelRatio: window.devicePixelRatio,
@@ -115,16 +103,46 @@
 
              var manager = new WebVRManager(renderer, effect, {hideButton: false});
 
+             manager.setMode_ = function(mode) {
+              setCanvasDimensions();
+              var oldMode = this.mode;
+              // The below code throws an error and is not necessary for web only VR
+              // if (mode == this.mode) {
+              //   console.error('Not changing modes, already in %s', mode);
+              //   return;
+              // }
+              // console.log('Mode change: %s => %s', this.mode, mode);
+              // this.mode = mode;
+              // this.button.setMode(mode, this.isVRCompatible);
+              //
+              // // Emit an event indicating the mode changed.
+              // this.emit('modechange', mode, oldMode);
+            };
+
              renderedCanvas = renderer.domElement;
 
              container.insertBefore(renderedCanvas, container.firstChild);
              videoEl.style.display = "none";
-
+             var initialWidth = videoEl.style.width;
+             var initialHeight = videoEl.style.height;
+             var videoJsEl = document.getElementsByClassName('video-js')[0]
+             var canvasEl = document.getElementsByTagName('canvas')[0];
+             setCanvasDimensions();
              // Handle window resizes
              function onWindowResize() {
-                 camera.aspect = window.innerWidth / window.innerHeight;
-                 camera.updateProjectionMatrix();
-                 effect.setSize( window.innerWidth, window.innerHeight );
+               camera.aspect = window.innerWidth / window.innerHeight;
+               camera.updateProjectionMatrix();
+               effect.setSize( window.innerWidth, window.innerHeight );
+               setCanvasDimensions();
+             }
+             function setCanvasDimensions() {
+               if (videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') > -1) {
+                 canvasEl.style.width = '100%';
+                 canvasEl.style.height = '100%';
+               } else {
+                 canvasEl.style.width = videoJsEl.style.width;
+                 canvasEl.style.height = videoJsEl.style.height;
+               }
              }
 
  			window.addEventListener('resize', onWindowResize, false);

@@ -6,7 +6,7 @@ var cors = require('cors');
 var server = express();
 
 var corsOptions = {
-  origin: 'http://brightcove360.s3-website-us-east-1.amazonaws.com'
+  origin: '*'
 };
 
 server.use(cors(corsOptions));

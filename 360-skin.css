@@ -8,19 +8,6 @@
 .video-js.vjs-has-started canvas:active {
   cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.png);
   cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.cur), move;
-
-}
-
-/* Full screen resizing with CSS. Using !important here to override buggy resizing in video.js */
-
-.video-js.vjs-fullscreen, .video-js.vjs-fullscreen canvas {
-  width: 100%;
-  height: 100%;
-}
-
-.video-js:not(.vjs-fullscreen), .video-js:not(.vjs-fullscreen) canvas {
-  width: 640px !important;
-  height: 360px !important;
 }
 
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
