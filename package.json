@@ -24,6 +24,7 @@
     "watch-css": "watchify -g browserify-css player-skin.js -o ./dist/player-skin.js -v",
     "watch": "npm run watch-js & npm run watch-css",
     "build-js": "browserify player.js -d -p [minifyify --no-map] -o ./dist/player.js",
+    "build-js-no-min": "browserify player.js -o ./dist/player.full.js",
     "build-css": "browserify -g browserify-css player-skin.js -o ./dist/player-skin.js",
     "build": "npm run build-js & npm run build-css",
     "copy-videojs": "cp ./node_modules/video.js/dist/video.js ./dist/",
