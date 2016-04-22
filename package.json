@@ -21,12 +21,14 @@
   },
   "scripts": {
     "watch-js": "watchify player.js -d -p [minifyify --no-map] -o ./dist/player.js",
-    "watch-css": "watchify -g browserify-css player-skin.js -d -p [minifyify --no-map] -o ./dist/player-skin.js -v",
+    "watch-js-map": "watchify player.js -d -p [minifyify --map player.js.map --output dist/player.js.map] -o ./dist/player.js",
+    "watch-css": "watchify -g browserify-css player-skin.js -o ./dist/player-skin.js -v",
     "watch": "npm run watch-js & npm run watch-css",
     "build-js": "browserify player.js -d -p [minifyify --no-map] -o ./dist/player.js",
-    "build-css": "browserify -g browserify-css player-skin.js -d -p [minifyify --no-map] -o ./dist/player-skin.js",
+    "build-css": "browserify -g browserify-css player-skin.js -o ./dist/player-skin.js",
     "build": "npm run build-js & npm run build-css",
     "copy-videojs": "cp ./node_modules/video.js/dist/video.js ./dist/",
+    "serve-map": "npm run watch-js-map & npm run watch-css & nodemon ./server.js",
     "serve": "npm run watch & nodemon ./server.js"
   },
   "devDependencies": {

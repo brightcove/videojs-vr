@@ -1,17 +1,14 @@
 /* Cursor grabs video when hovering over or holding down */
 
 .video-js.vjs-has-started canvas {
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.cur);
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-  cursor: grab;
+  cursor: url(./assets/grab.png);
+  cursor: url(./assets/grab.cur), move;
 }
 
 .video-js.vjs-has-started canvas:active {
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.cur);
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
+  cursor: url(./assets/grabbing.png);
+  cursor: url(./assets/grabbing.cur), move;
+  
 }
 
 /* Full screen resizing with CSS. Using !important here to override buggy resizing in video.js */
