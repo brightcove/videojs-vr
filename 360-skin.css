@@ -2,7 +2,6 @@
 
 .video-js.vjs-playing canvas {
   cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.cur), move;
-  cursor: move;
   cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;
