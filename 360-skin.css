@@ -1,13 +1,13 @@
 /* Cursor grabs video when hovering over or holding down */
 
-.video-js.vjs-playing:not(.vjs-paused) canvas {
+.video-js.vjs-has-started canvas {
   cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.cur), move;
   /*cursor: -moz-grab;
   cursor: -webkit-grab;
   cursor: grab;*/
 }
 
-.video-js.vjs-playing:not(.vjs-paused) canvas:active {
+.video-js.vjs-has-started canvas:active {
   cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.cur), move;
   /*cursor: grabbing;
   cursor: -moz-grabbing;
