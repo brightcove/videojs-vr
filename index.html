@@ -18,7 +18,6 @@
     var win;
     document.getElementsByTagName('iframe')[0].onload = function() {
         win = document.querySelector("iframe").contentWindow;
-        updateSource();
     };
     function updateSource() {
       if (win) {

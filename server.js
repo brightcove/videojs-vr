@@ -1,8 +1,15 @@
 var express = require('express');
 var proxy = require('express-http-proxy');
 var path = require('path');
+var cors = require('cors');
 
 var server = express();
+
+var corsOptions = {
+  origin: 'http://players.brightcove.net'
+};
+
+server.use(cors(corsOptions));
 
 server.use(express.static(path.join(__dirname)));
 
