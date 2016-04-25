@@ -104,7 +104,6 @@
              var manager = new WebVRManager(renderer, effect, {hideButton: false});
 
              manager.setMode_ = function(mode) {
-              setCanvasDimensions();
               var oldMode = this.mode;
               // The below code throws an error and is not necessary for web only VR
               // if (mode == this.mode) {
@@ -125,27 +124,26 @@
              videoEl.style.display = "none";
              var initialWidth = videoEl.style.width;
              var initialHeight = videoEl.style.height;
-             var videoJsEl = document.getElementsByClassName('video-js')[0]
+             var videoJsEl = document.getElementsByClassName('video-js')[0];
              var canvasEl = document.getElementsByTagName('canvas')[0];
-             setCanvasDimensions();
+             canvasEl.style.width = initialWidth;
+             canvasEl.style.height = initialHeight;
              // Handle window resizes
              function onWindowResize() {
                camera.aspect = window.innerWidth / window.innerHeight;
                camera.updateProjectionMatrix();
                effect.setSize( window.innerWidth, window.innerHeight );
-               setCanvasDimensions();
+               if (isFullScreen()) { setCanvasDimensions(); }
              }
              function setCanvasDimensions() {
-               if (videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') > -1) {
-                 canvasEl.style.width = '100%';
-                 canvasEl.style.height = '100%';
-               } else {
-                 canvasEl.style.width = videoJsEl.style.width;
-                 canvasEl.style.height = videoJsEl.style.height;
-               }
+               canvasEl.style.width = '100%';
+               canvasEl.style.height = '100%';
+             }
+             function isFullScreen() {
+               return !(!window.screenTop && !window.screenY) && videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') === -1;
              }
 
- 			window.addEventListener('resize', onWindowResize, false);
+ 			      window.addEventListener('resize', onWindowResize, false);
 
              (function animate() {
                  if ( videoEl.readyState === videoEl.HAVE_ENOUGH_DATA ) {
