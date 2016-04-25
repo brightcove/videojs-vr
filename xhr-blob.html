@@ -24,48 +24,56 @@
       return this.substr(-suffix.length) === suffix;
     };
     var myPlayer = videojs(document.getElementsByClassName('video-js')[0]);
+    var type = '';
+    var loadingMessageElement = document.querySelector('#loading-message');
     function updateInPage() {
-      var type = '';
+      type = '';
       var videoUrl = document.getElementById('video_url_input').value;
       if (videoUrl.split('?')[0].endsWith('.m3u8')) {
        type = "application/x-mpegURL";
       } else if (videoUrl.split('?')[0].endsWith('.mp4')){
        type = "video/mp4";
       }
-      console.log('Type: ', type, 'Video URL: ', videoUrl.split('?')[0]);
-      if (isNaN(videoUrl)) { // treat the input as a videoId
-
-        var loadingMessageElement = document.querySelector('#loading-message');
-
-        console.log('Loading %s video from URL', type);
-
-        loadingMessageElement.innerHTML = "Video is loading, please wait...";
-
-        fetchVideo(videoUrl, function(uInt8Array) {
-          var blob = new Blob([uInt8Array], {
-            type: type
-          });
-
-          loadingMessageElement.innerHTML = "Video is loaded!";
-
-          var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="video/mp4"></source>';
-          document.querySelector('video').innerHTML = videoSource;
-
-          // myPlayer.src({
-          //   src: URL.createObjectURL(blob),
-          //   type: type
-          // });
-        });
-
-      } else {
-        console.log('Loading video %s from catalog', video);
-
+      if (isNaN(videoUrl)) {
+        loadVideo(videoUrl);
+      } else { // treat the input as a videoId
+        console.log('Loading video %s from catalog');
+        var videoParts = [];
          myPlayer.catalog.getVideo(videoUrl, function(error, video) {
-           myPlayer.catalog.load(video);
+           video.sources.forEach(function(source) {
+             fetchVideoPart(source, function(uInt8Array) {
+               videoParts.push(uInt8Array);
+               var blob = new Blob(videoParts, {
+                 type: type
+               });
+
+               loadingMessageElement.innerHTML = "Video is loaded!";
+
+               var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="'+type+'"></source>';
+               document.querySelector('video').innerHTML = videoSource;
+             });
+           });
          });
       }
     }
-    updateInPage();
+
+    function loadVideo(videoUrl) {
+      console.log('Loading %s video from URL', type);
+
+      loadingMessageElement.innerHTML = "Video is loading, please wait...";
+
+      fetchVideo(videoUrl, function(uInt8Array) {
+        var blob = new Blob([uInt8Array], {
+          type: type
+        });
+
+        loadingMessageElement.innerHTML = "Video is loaded!";
+
+        var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="'+type+'"></source>';
+        document.querySelector('video').innerHTML = videoSource;
+
+      });
+    }
 
     function fetchVideo(url, callback) {
       var xhr = new XMLHttpRequest();
@@ -81,6 +89,25 @@
         callback(new Uint8Array(xhr.response));
       };
     }
+
+    function fetchVideoPart(source, callback) {
+      if (source.src) {
+        var xhr = new XMLHttpRequest;
+        type = source.type;
+        xhr.open('GET', source.src, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.send();
+        xhr.onload = function() {
+          if (xhr.status !== 200) {
+            alert('Unexpected status code ' + xhr.status + ' for ' + source.src);
+            return false;
+          }
+          callback(new Uint8Array(xhr.response));
+        };
+      }
+    }
+
+    updateInPage();
  </script>
 </body>
 </html>
