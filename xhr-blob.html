@@ -1,44 +1,73 @@
 <!doctype html>
 <html>
 <head>
-  <title>VR Plugin Example</title>
+  <title>VR Plugin Example - Brightcove Player</title>
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
 </head>
 <body>
-  <script src="./dist/player-skin.js"></script>
-  <div id="container">
-    <video class="video-js" id="video-container" preload="auto" crossorigin="anonymous" data-setup="{}" controls>
-      <p class="vjs-no-js">
-        To view this video please enable JavaScript, and consider upgrading to a web browser that
-        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
-      </p>
-    </video>
-  </div>
-  <p id="loading-message">Video is loading, please wait...</p>
-  <script src="./dist/video.js"></script>
-  <script src="./dist/player.js"></script>
+  <video data-account="4846977590001"
+  data-player="rklMmCdR"
+  data-embed="default"
+  class="video-js"
+  poster="./assets/plane360poster.png"
+  controls
+  style="width: 640px; height: 360px;"></video>
+  <script src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.min.js"></script>
+  <p>
+    Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" autofocus="">
+  </p>
+  <p><button onclick="updateInPage()">Update Video</button></p>
+  <p id="loading-message"></p>
   <script>
-    var videoUrl = "http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4";
+    String.prototype.endsWith = function(suffix) { /* For IE11 */
+      return this.substr(-suffix.length) === suffix;
+    };
+    var myPlayer = videojs(document.getElementsByClassName('video-js')[0]);
+    function updateInPage() {
+      var type = '';
+      var videoUrl = document.getElementById('video_url_input').value;
+      if (videoUrl.split('?')[0].endsWith('.m3u8')) {
+       type = "application/x-mpegURL";
+      } else if (videoUrl.split('?')[0].endsWith('.mp4')){
+       type = "video/mp4";
+      }
+      console.log('Type: ', type, 'Video URL: ', videoUrl.split('?')[0]);
+      if (isNaN(videoUrl)) { // treat the input as a videoId
 
-    document.addEventListener("DOMContentLoaded", function(event) {
-      getVideo(videoUrl, function(uInt8Array) {
-        var blob = new Blob([uInt8Array], {
-          type: 'video/mp4'
+        var loadingMessageElement = document.querySelector('#loading-message');
+
+        console.log('Loading %s video from URL', type);
+
+        loadingMessageElement.innerHTML = "Video is loading, please wait...";
+
+        fetchVideo(videoUrl, function(uInt8Array) {
+          var blob = new Blob([uInt8Array], {
+            type: type
+          });
+
+          loadingMessageElement.innerHTML = "Video is loaded!";
+
+          var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="video/mp4"></source>';
+          document.querySelector('video').innerHTML = videoSource;
+
+          // myPlayer.src({
+          //   src: URL.createObjectURL(blob),
+          //   type: type
+          // });
         });
 
-        var video = document.querySelector('#video-container video');
-        var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="video/mp4"></source>';
+      } else {
+        console.log('Loading video %s from catalog', video);
 
-        video.innerHTML += videoSource;
+         myPlayer.catalog.getVideo(videoUrl, function(error, video) {
+           myPlayer.catalog.load(video);
+         });
+      }
+    }
+    updateInPage();
 
-        videojs('video-container').vr({projection: "Sphere"});
-
-        document.querySelector('#loading-message').innerHTML = "Video is loaded!";
-      });
-    });
-
-    function getVideo(url, callback) {
+    function fetchVideo(url, callback) {
       var xhr = new XMLHttpRequest();
       xhr.open('GET', url, true);
       xhr.responseType = 'arraybuffer';
@@ -52,7 +81,6 @@
         callback(new Uint8Array(xhr.response));
       };
     }
-
-  </script>
+ </script>
 </body>
 </html>
