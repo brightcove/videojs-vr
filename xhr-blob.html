@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+<head>
+  <title>VR Plugin Example</title>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+  <meta content="utf-8" http-equiv="encoding">
+</head>
+<body>
+  <script src="./dist/player-skin.js"></script>
+  <div id="container">
+    <video class="video-js" id="video-container" preload="auto" crossorigin="anonymous" data-setup="{}" controls>
+      <p class="vjs-no-js">
+        To view this video please enable JavaScript, and consider upgrading to a web browser that
+        <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+      </p>
+    </video>
+  </div>
+  <p id="loading-message">Video is loading, please wait...</p>
+  <script src="./dist/video.js"></script>
+  <script src="./dist/player.js"></script>
+  <script>
+    var videoUrl = "http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4";
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+      getVideo(videoUrl, function(uInt8Array) {
+        var blob = new Blob([uInt8Array], {
+          type: 'video/mp4'
+        });
+
+        var video = document.querySelector('#video-container video');
+        var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="video/mp4"></source>';
+
+        video.innerHTML += videoSource;
+
+        videojs('video-container').vr({projection: "Sphere"});
+
+        document.querySelector('#loading-message').innerHTML = "Video is loaded!";
+      });
+    });
+
+    function getVideo(url, callback) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', url, true);
+      xhr.responseType = 'arraybuffer';
+      xhr.send();
+
+      xhr.onload = function() {
+        if (xhr.status !== 200) {
+          alert('Unexpected status code ' + xhr.status + ' for ' + url);
+          return false;
+        }
+        callback(new Uint8Array(xhr.response));
+      };
+    }
+
+  </script>
+</body>
+</html>
