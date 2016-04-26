@@ -50,7 +50,6 @@
                });
 
                loadingMessageElement.innerHTML = "Video is loaded!";
-               videoJsElem.classList.remove("disabled");
                videoJsElem.classList.remove("vjs-disabled");
 
                var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="'+type+'"></source>';
@@ -72,6 +71,7 @@
         });
 
         loadingMessageElement.innerHTML = "Video is loaded!";
+        videoJsElem.classList.remove("vjs-disabled");
 
         var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="'+type+'"></source>';
         document.querySelector('video').innerHTML = videoSource;

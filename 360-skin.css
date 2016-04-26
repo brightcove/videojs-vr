@@ -30,8 +30,8 @@
   -o-transition: all 0s;
 }
 
-.video-js.disabled .vjs-big-play-button {
-  pointer-events: none;
+.video-js.vjs-disabled .vjs-big-play-button {
+  display: none;
 }
 
 .video-js.vjs-fullscreen .vjs-big-play-button {
