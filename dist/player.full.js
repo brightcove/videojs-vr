@@ -1482,6 +1482,47 @@ process.umask = function() { return 0; };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
+/* eslint-disable no-unused-vars */
+'use strict';
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+module.exports = Object.assign || function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (Object.getOwnPropertySymbols) {
+			symbols = Object.getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+},{}],6:[function(require,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -1614,7 +1655,7 @@ THREE.VRControls = function ( object, onError ) {
 
 };
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 /**
  * @author dmarcos / https://github.com/dmarcos
  * @author mrdoob / http://mrdoob.com
@@ -1950,7 +1991,7 @@ THREE.VREffect = function ( renderer, onError ) {
 
 };
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 var self = self || {};// File:src/Three.js
 
 /**
@@ -42633,7 +42674,7 @@ if (typeof exports !== 'undefined') {
   this['THREE'] = THREE;
 }
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42777,7 +42818,7 @@ ButtonManager.prototype.loadIcons_ = function() {
 
 module.exports = ButtonManager;
 
-},{"./emitter.js":9,"./modes.js":11,"./util.js":12}],9:[function(require,module,exports){
+},{"./emitter.js":10,"./modes.js":12,"./util.js":13}],10:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42821,7 +42862,7 @@ Emitter.prototype.on = function(eventName, callback) {
 
 module.exports = Emitter;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42842,7 +42883,7 @@ var WebVRManager = require('./webvr-manager.js');
 window.WebVRConfig = window.WebVRConfig || {};
 window.WebVRManager = WebVRManager;
 
-},{"./webvr-manager.js":13}],11:[function(require,module,exports){
+},{"./webvr-manager.js":14}],12:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42870,7 +42911,7 @@ var Modes = {
 
 module.exports = Modes;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -42975,7 +43016,7 @@ Util.leftProjectionVectorToRight_ = function(left) {
 
 module.exports = Util;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43215,7 +43256,7 @@ WebVRManager.prototype.onFullscreenChange_ = function(e) {
 
 module.exports = WebVRManager;
 
-},{"./button-manager.js":8,"./emitter.js":9,"./modes.js":11,"./util.js":12}],14:[function(require,module,exports){
+},{"./button-manager.js":9,"./emitter.js":10,"./modes.js":12,"./util.js":13}],15:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43236,6 +43277,7 @@ var WakeLock = require('./wakelock.js');
 
 // Start at a higher number to reduce chance of conflict.
 var nextDisplayId = 1000;
+var hasShowDeprecationWarning = false;
 
 /**
  * The base class for all VR displays.
@@ -43251,7 +43293,8 @@ function VRDisplay() {
     hasPosition: false,
     hasOrientation: false,
     hasExternalDisplay: false,
-    canPresent: false
+    canPresent: false,
+    maxLayers: 1
   };
   this.stageParameters = null;
 
@@ -43326,9 +43369,16 @@ VRDisplay.prototype.removeFullscreenWrapper = function() {
   return element;
 };
 
-VRDisplay.prototype.requestPresent = function(layer) {
+VRDisplay.prototype.requestPresent = function(layers) {
   var self = this;
-  this.layer_ = layer;
+
+  if (!(layers instanceof Array)) {
+    if (!hasShowDeprecationWarning) {
+      console.warn("Using a deprecated form of requestPresent. Should pass in an array of VRLayers.");
+      hasShowDeprecationWarning = true;
+    }
+    layers = [layers];
+  }
 
   return new Promise(function(resolve, reject) {
     if (!self.capabilities.canPresent) {
@@ -43336,9 +43386,16 @@ VRDisplay.prototype.requestPresent = function(layer) {
       return;
     }
 
+    if (layers.length == 0 || layers.length > self.capabilities.maxLayers) {
+      reject(new Error('Invalid number of layers.'));
+      return;
+    }
+
+    self.layer_ = layers[0];
+
     self.waitingForPresent_ = false;
-    if (layer && layer.source) {
-      var fullscreenElement = self.wrapForFullscreen(layer.source);
+    if (self.layer_ && self.layer_.source) {
+      var fullscreenElement = self.wrapForFullscreen(self.layer_.source);
 
       function onFullscreenChange() {
         var actualFullscreenElement = Util.getFullscreenElement();
@@ -43423,14 +43480,11 @@ VRDisplay.prototype.exitPresent = function() {
   });
 };
 
-// This returns an array because future versions of the spec may accept multiple
-// layers in requestPresent, and it's easier to overload function parameters
-// than it is return types.
 VRDisplay.prototype.getLayers = function() {
   if (this.layer_) {
     return [this.layer_];
   }
-  return null;
+  return [];
 };
 
 VRDisplay.prototype.fireVRDisplayPresentChange_ = function() {
@@ -43537,7 +43591,7 @@ module.exports.VRDevice = VRDevice;
 module.exports.HMDVRDevice = HMDVRDevice;
 module.exports.PositionSensorVRDevice = PositionSensorVRDevice;
 
-},{"./util.js":33,"./wakelock.js":35}],15:[function(require,module,exports){
+},{"./util.js":34,"./wakelock.js":36}],16:[function(require,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43593,7 +43647,7 @@ function CardboardDistorter(gl) {
   this.meshWidth = 20;
   this.meshHeight = 20;
 
-  this.bufferScale = WebVRConfig.BUFFER_SCALE ? WebVRConfig.BUFFER_SCALE : 1.0;
+  this.bufferScale = WebVRConfig.BUFFER_SCALE;
 
   this.bufferWidth = gl.drawingBufferWidth;
   this.bufferHeight = gl.drawingBufferHeight;
@@ -44174,7 +44228,7 @@ CardboardDistorter.prototype.getOwnPropertyDescriptor_ = function(proto, attrNam
 
 module.exports = CardboardDistorter;
 
-},{"./cardboard-ui.js":16,"./deps/wglu-preserve-state.js":18,"./util.js":33}],16:[function(require,module,exports){
+},{"./cardboard-ui.js":17,"./deps/wglu-preserve-state.js":19,"./util.js":34}],17:[function(require,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44462,7 +44516,7 @@ CardboardUI.prototype.renderNoState = function() {
 
 module.exports = CardboardUI;
 
-},{"./deps/wglu-preserve-state.js":18,"./util.js":33}],17:[function(require,module,exports){
+},{"./deps/wglu-preserve-state.js":19,"./util.js":34}],18:[function(require,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -44503,7 +44557,7 @@ function CardboardVRDisplay() {
   this.capabilities.canPresent = true;
 
   // "Private" members.
-  this.bufferScale_ = WebVRConfig.BUFFER_SCALE ? WebVRConfig.BUFFER_SCALE : 1.0;
+  this.bufferScale_ = WebVRConfig.BUFFER_SCALE;
   this.poseSensor_ = new FusionPoseSensor();
   this.distorter_ = null;
   this.cardboardUI_ = null;
@@ -44675,7 +44729,7 @@ CardboardVRDisplay.prototype.fireVRDisplayDeviceParamsChange_ = function() {
 
 module.exports = CardboardVRDisplay;
 
-},{"./base.js":14,"./cardboard-distorter.js":15,"./cardboard-ui.js":16,"./device-info.js":19,"./dpdb/dpdb.js":23,"./rotate-instructions.js":26,"./sensor-fusion/fusion-pose-sensor.js":28,"./util.js":33,"./viewer-selector.js":34}],18:[function(require,module,exports){
+},{"./base.js":15,"./cardboard-distorter.js":16,"./cardboard-ui.js":17,"./device-info.js":20,"./dpdb/dpdb.js":24,"./rotate-instructions.js":27,"./sensor-fusion/fusion-pose-sensor.js":29,"./util.js":34,"./viewer-selector.js":35}],19:[function(require,module,exports){
 /*
 Copyright (c) 2016, Brandon Jones.
 
@@ -44840,7 +44894,7 @@ function WGLUPreserveGLState(gl, bindings, callback) {
 }
 
 module.exports = WGLUPreserveGLState;
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45225,7 +45279,7 @@ function CardboardViewer(params) {
 // Export viewer information.
 DeviceInfo.Viewers = Viewers;
 module.exports = DeviceInfo;
-},{"./distortion/distortion.js":21,"./three-math.js":31,"./util.js":33}],20:[function(require,module,exports){
+},{"./distortion/distortion.js":22,"./three-math.js":32,"./util.js":34}],21:[function(require,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -45251,7 +45305,7 @@ function VRDisplayHMDDevice(display) {
   this.display = display;
 
   this.hardwareUnitId = display.displayId;
-  this.deviceId = 'webvr-pollyfill:HMD:' + display.displayId;
+  this.deviceId = 'webvr-polyfill:HMD:' + display.displayId;
   this.deviceName = display.displayName + ' (HMD)';
 }
 VRDisplayHMDDevice.prototype = new HMDVRDevice();
@@ -45291,7 +45345,7 @@ function VRDisplayPositionSensorDevice(display) {
   this.display = display;
 
   this.hardwareUnitId = display.displayId;
-  this.deviceId = 'webvr-pollyfill:PositionSensor: ' + display.displayId;
+  this.deviceId = 'webvr-polyfill:PositionSensor: ' + display.displayId;
   this.deviceName = display.displayName + ' (PositionSensor)';
 }
 VRDisplayPositionSensorDevice.prototype = new PositionSensorVRDevice();
@@ -45317,7 +45371,7 @@ module.exports.VRDisplayHMDDevice = VRDisplayHMDDevice;
 module.exports.VRDisplayPositionSensorDevice = VRDisplayPositionSensorDevice;
 
 
-},{"./base.js":14}],21:[function(require,module,exports){
+},{"./base.js":15}],22:[function(require,module,exports){
 /**
  * TODO(smus): Implement coefficient inversion.
  */
@@ -45366,7 +45420,7 @@ Distortion.prototype.distort = function(radius) {
 }
 
 module.exports = Distortion;
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46337,7 +46391,7 @@ var DPDB_CACHE = {
 
 module.exports = DPDB_CACHE;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46527,9 +46581,9 @@ function DeviceParams(params) {
 }
 
 module.exports = Dpdb;
-},{"../util.js":33,"./dpdb-cache.js":22}],24:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],25:[function(require,module,exports){
+},{"../util.js":34,"./dpdb-cache.js":23}],25:[function(require,module,exports){
+arguments[4][10][0].apply(exports,arguments)
+},{"dup":10}],26:[function(require,module,exports){
 /*
  * Copyright 2016 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46567,10 +46621,12 @@ function MouseKeyboardVRDisplay() {
   this.capabilities.hasOrientation = true;
 
   // Attach to mouse and keyboard events.
-  window.addEventListener('keydown', this.onKeyDown_.bind(this));
-  window.addEventListener('mousemove', this.onMouseMove_.bind(this));
-  window.addEventListener('mousedown', this.onMouseDown_.bind(this));
-  window.addEventListener('mouseup', this.onMouseUp_.bind(this));
+  var video = document.querySelector('.video-js');
+
+  video.addEventListener('keydown', this.onKeyDown_.bind(this));
+  video.addEventListener('mousemove', this.onMouseMove_.bind(this));
+  video.addEventListener('mousedown', this.onMouseDown_.bind(this));
+  video.addEventListener('mouseup', this.onMouseUp_.bind(this));
 
   // "Private" members.
   this.phi_ = 0;
@@ -46708,7 +46764,7 @@ MouseKeyboardVRDisplay.prototype.resetPose = function() {
 
 module.exports = MouseKeyboardVRDisplay;
 
-},{"./base.js":14,"./three-math.js":31,"./util.js":33}],26:[function(require,module,exports){
+},{"./base.js":15,"./three-math.js":32,"./util.js":34}],27:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -46776,6 +46832,7 @@ function RotateInstructions() {
   var snackbarButton = document.createElement('a');
   snackbarButton.href = 'https://www.google.com/get/cardboard/get-cardboard/';
   snackbarButton.innerHTML = 'get one';
+  snackbarButton.target = '_blank';
   var s = snackbarButton.style;
   s.float = 'right';
   s.fontWeight = 600;
@@ -46851,7 +46908,7 @@ RotateInstructions.prototype.loadIcon_ = function() {
 
 module.exports = RotateInstructions;
 
-},{"./util.js":33}],27:[function(require,module,exports){
+},{"./util.js":34}],28:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47019,7 +47076,7 @@ ComplementaryFilter.prototype.gyroToQuaternionDelta_ = function(gyro, dt) {
 
 module.exports = ComplementaryFilter;
 
-},{"../three-math.js":31,"../util.js":33,"./sensor-sample.js":30}],28:[function(require,module,exports){
+},{"../three-math.js":32,"../util.js":34,"./sensor-sample.js":31}],29:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47053,8 +47110,8 @@ function FusionPoseSensor() {
   window.addEventListener('devicemotion', this.onDeviceMotionChange_.bind(this));
   window.addEventListener('orientationchange', this.onScreenOrientationChange_.bind(this));
 
-  this.filter = new ComplementaryFilter(WebVRConfig.K_FILTER || 0.98);
-  this.posePredictor = new PosePredictor(WebVRConfig.PREDICTION_TIME_S || 0.040);
+  this.filter = new ComplementaryFilter(WebVRConfig.K_FILTER);
+  this.posePredictor = new PosePredictor(WebVRConfig.PREDICTION_TIME_S);
   this.touchPanner = new TouchPanner();
 
   this.filterToWorldQ = new THREE.Quaternion();
@@ -47186,7 +47243,7 @@ FusionPoseSensor.prototype.setScreenTransform_ = function() {
 
 module.exports = FusionPoseSensor;
 
-},{"../three-math.js":31,"../touch-panner.js":32,"../util.js":33,"./complementary-filter.js":27,"./pose-predictor.js":29}],29:[function(require,module,exports){
+},{"../three-math.js":32,"../touch-panner.js":33,"../util.js":34,"./complementary-filter.js":28,"./pose-predictor.js":30}],30:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -47269,7 +47326,7 @@ PosePredictor.prototype.getPrediction = function(currentQ, gyro, timestampS) {
 
 module.exports = PosePredictor;
 
-},{"../three-math.js":31}],30:[function(require,module,exports){
+},{"../three-math.js":32}],31:[function(require,module,exports){
 function SensorSample(sample, timestampS) {
   this.set(sample, timestampS);
 };
@@ -47285,7 +47342,7 @@ SensorSample.prototype.copy = function(sensorSample) {
 
 module.exports = SensorSample;
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /*
  * A subset of THREE.js, providing mostly quaternion and euler-related
  * operations, manually lifted from
@@ -49580,7 +49637,7 @@ THREE.Math = {
 
 module.exports = THREE;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49658,7 +49715,7 @@ TouchPanner.prototype.onTouchEnd_ = function(e) {
 
 module.exports = TouchPanner;
 
-},{"./three-math.js":31,"./util.js":33}],33:[function(require,module,exports){
+},{"./three-math.js":32,"./util.js":34}],34:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -49673,6 +49730,9 @@ module.exports = TouchPanner;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+var objectAssign = require('object-assign');
+
 var Util = window.Util || {};
 
 Util.MIN_TIMESTEP = 0.001;
@@ -49845,10 +49905,11 @@ Util.isMobile = function() {
   return check;
 };
 
+Util.extend = objectAssign;
 
 module.exports = Util;
 
-},{}],34:[function(require,module,exports){
+},{"object-assign":5}],35:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50049,7 +50110,7 @@ ViewerSelector.prototype.createButton_ = function(label, onclick) {
 
 module.exports = ViewerSelector;
 
-},{"./device-info.js":19,"./emitter.js":24,"./util.js":33}],35:[function(require,module,exports){
+},{"./device-info.js":20,"./emitter.js":25,"./util.js":34}],36:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50124,7 +50185,7 @@ function getWakeLock() {
 }
 
 module.exports = getWakeLock();
-},{"./util.js":33}],36:[function(require,module,exports){
+},{"./util.js":34}],37:[function(require,module,exports){
 /*
  * Copyright 2015 Google Inc. All Rights Reserved.
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -50269,7 +50330,7 @@ WebVRPolyfill.prototype.getVRDevices = function() {
           return (navigator.getVRDDevices || navigator.mozGetVRDevices)(function(devices) {
             for (var i = 0; i < devices.length; ++i) {
               if (devices[i] instanceof HMDVRDevice) {
-                self.devices.push(displays[i]);
+                self.devices.push(devices[i]);
               }
               if (devices[i] instanceof PositionSensorVRDevice) {
                 self.devices.push(devices[i]);
@@ -50305,7 +50366,7 @@ WebVRPolyfill.prototype.isCardboardCompatible = function() {
 
 module.exports = WebVRPolyfill;
 
-},{"./base.js":14,"./cardboard-vr-display.js":17,"./display-wrappers.js":20,"./mouse-keyboard-vr-display.js":25,"es6-promise":3}],37:[function(require,module,exports){
+},{"./base.js":15,"./cardboard-vr-display.js":18,"./display-wrappers.js":21,"./mouse-keyboard-vr-display.js":26,"es6-promise":3}],38:[function(require,module,exports){
 (function (global){
 require('native-promise-only');
 var vjs = window.videojs || {};
@@ -50319,7 +50380,7 @@ require('webvr-boilerplate');
 require('./videojs.vr.js')(vjs);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./videojs.vr.js":38,"./webvr.config.js":39,"native-promise-only":4,"three":7,"three/examples/js/controls/VRControls.js":5,"three/examples/js/effects/VREffect.js":6,"webvr-boilerplate":10,"webvr-polyfill/src/webvr-polyfill":36}],38:[function(require,module,exports){
+},{"./videojs.vr.js":39,"./webvr.config.js":40,"native-promise-only":4,"three":8,"three/examples/js/controls/VRControls.js":6,"three/examples/js/effects/VREffect.js":7,"webvr-boilerplate":11,"webvr-polyfill/src/webvr-polyfill":37}],39:[function(require,module,exports){
 /*! videojs-vr - v0.1.0 - 2014-04-09
 * Copyright (c) 2014 Sean Lawrence; Licensed  */
 /*
@@ -50426,7 +50487,6 @@ require('./videojs.vr.js')(vjs);
              var manager = new WebVRManager(renderer, effect, {hideButton: false});
 
              manager.setMode_ = function(mode) {
-              setCanvasDimensions();
               var oldMode = this.mode;
               // The below code throws an error and is not necessary for web only VR
               // if (mode == this.mode) {
@@ -50447,27 +50507,26 @@ require('./videojs.vr.js')(vjs);
              videoEl.style.display = "none";
              var initialWidth = videoEl.style.width;
              var initialHeight = videoEl.style.height;
-             var videoJsEl = document.getElementsByClassName('video-js')[0]
+             var videoJsEl = document.getElementsByClassName('video-js')[0];
              var canvasEl = document.getElementsByTagName('canvas')[0];
-             setCanvasDimensions();
+             canvasEl.style.width = initialWidth;
+             canvasEl.style.height = initialHeight;
              // Handle window resizes
              function onWindowResize() {
                camera.aspect = window.innerWidth / window.innerHeight;
                camera.updateProjectionMatrix();
                effect.setSize( window.innerWidth, window.innerHeight );
-               setCanvasDimensions();
+               if (isFullScreen()) { setCanvasDimensions(); }
              }
              function setCanvasDimensions() {
-               if (videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') > -1) {
-                 canvasEl.style.width = '100%';
-                 canvasEl.style.height = '100%';
-               } else {
-                 canvasEl.style.width = videoJsEl.style.width;
-                 canvasEl.style.height = videoJsEl.style.height;
-               }
+               canvasEl.style.width = '100%';
+               canvasEl.style.height = '100%';
+             }
+             function isFullScreen() {
+               return !(!window.screenTop && !window.screenY) && videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') === -1;
              }
 
- 			window.addEventListener('resize', onWindowResize, false);
+ 			      window.addEventListener('resize', onWindowResize, false);
 
              (function animate() {
                  if ( videoEl.readyState === videoEl.HAVE_ENOUGH_DATA ) {
@@ -50683,7 +50742,7 @@ require('./videojs.vr.js')(vjs);
 
 };
 
-},{"./ie11-webgl-patch":1}],39:[function(require,module,exports){
+},{"./ie11-webgl-patch":1}],40:[function(require,module,exports){
 module.exports = {
   // Forces availability of VR mode, even for non-mobile devices.
   FORCE_ENABLE_VR: false, // Default: false.
@@ -50726,4 +50785,4 @@ module.exports = {
   DIRTY_SUBMIT_FRAME_BINDINGS: false // Default: false.
 }
 
-},{}]},{},[37]);
+},{}]},{},[38]);

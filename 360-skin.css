@@ -30,6 +30,10 @@
   -o-transition: all 0s;
 }
 
+.video-js.disabled .vjs-big-play-button {
+  pointer-events: none;
+}
+
 .video-js.vjs-fullscreen .vjs-big-play-button {
   margin: -4em 0 0 -4em;
   height: 8em;

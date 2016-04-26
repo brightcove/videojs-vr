@@ -10,23 +10,25 @@
   data-player="rklMmCdR"
   data-embed="default"
   class="video-js"
-  poster="./assets/plane360poster.png"
   controls
   style="width: 640px; height: 360px;"></video>
   <script src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.min.js"></script>
   <p>
-    Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="http://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" autofocus="">
+    Video Source URL (HLS or MP4) or video ID: <input style="width:600px" type="text" id="video_url_input" value="https://cdn-au-stage.metacdn.com/vorjbrr/1xWFzlz/360_Tours_Iceland_original_mp4-MEDIUM-MP4.mp4" autofocus="">
   </p>
+  <p>It may be more effective to modify the source value in the HTML than in the input box, to prevent multiple videos from loading, or wait for one video to fully load before changing sources.</p>
   <p><button onclick="updateInPage()">Update Video</button></p>
   <p id="loading-message"></p>
   <script>
     String.prototype.endsWith = function(suffix) { /* For IE11 */
       return this.substr(-suffix.length) === suffix;
     };
-    var myPlayer = videojs(document.getElementsByClassName('video-js')[0]);
+    var videoJsElem = document.querySelector('.video-js');
+    var myPlayer = videojs(videoJsElem);
     var type = '';
     var loadingMessageElement = document.querySelector('#loading-message');
     function updateInPage() {
+      videoJsElem.className += 'disabled vjs-disabled';
       type = '';
       var videoUrl = document.getElementById('video_url_input').value;
       if (videoUrl.split('?')[0].endsWith('.m3u8')) {
@@ -37,7 +39,7 @@
       if (isNaN(videoUrl)) {
         loadVideo(videoUrl);
       } else { // treat the input as a videoId
-        console.log('Loading video %s from catalog');
+        console.log('Loading video from catalog');
         var videoParts = [];
          myPlayer.catalog.getVideo(videoUrl, function(error, video) {
            video.sources.forEach(function(source) {
@@ -48,6 +50,8 @@
                });
 
                loadingMessageElement.innerHTML = "Video is loaded!";
+               videoJsElem.classList.remove("disabled");
+               videoJsElem.classList.remove("vjs-disabled");
 
                var videoSource = '<source src="'+URL.createObjectURL(blob)+'" type="'+type+'"></source>';
                document.querySelector('video').innerHTML = videoSource;
