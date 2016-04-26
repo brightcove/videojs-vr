@@ -1,4 +1,12 @@
+// Shims
 require('native-promise-only');
+
+if (!String.prototype.endsWith) {
+  String.prototype.endsWith = function(suffix) { /* For IE11 */
+    return this.substr(-suffix.length) === suffix;
+  };
+}
+
 var vjs = window.videojs || {};
 global.THREE = require('three');
 global.WebVRConfig = require('./webvr.config.js');
