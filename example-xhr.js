@@ -1,6 +1,6 @@
 // Test VideoID: 4847412949001
 
-var myPlayer = videojs( 'video-container');
+var myPlayer = videojs(document.querySelector('.video-js'));
 var type = '';
 var loadingMessageElement, videoDetails, mediaSource, mimeCodec;
 
