@@ -7,7 +7,6 @@
 </head>
 <body>
   <video class="video-js" id="video-container" width="640" height="360" preload="auto" crossorigin="anonymous" data-setup="{}" controls style="width: 640px; height: 360px;">
-    <source src="http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/dash/stream.mpd" type="application/dash+xml">
     <p class="vjs-no-js">
       To view this video please enable JavaScript, and consider upgrading to a web browser that
       <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
@@ -22,6 +21,7 @@
   <script src="./dist/videojs-dash.min.js"></script>
   <script src="./dist/player.js"></script>
   <script>
+  var videoUrl = "http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/dash/stream.mpd";
   var mimeCodec = 'video/mp4; codecs="avc1.4D4028, mp4a.40.2"';
   var canUse = 'MediaSource' in window && MediaSource.isTypeSupported(mimeCodec);
 
@@ -36,7 +36,17 @@
     document.querySelector('#message-target').innerHTML += "<br/>" + message;
   }
 
-  videojs( 'video-container').vr({projection: "Sphere"});
+  var vjs = videojs( 'video-container');
+  vjs.vr({projection: "Sphere"});
+
+  vjs.ready(function() {
+    vjs.src(
+      {
+        type: "application/dash+xml",
+        src: videoUrl
+      }
+    );
+  });
   </script>
 </body>
 </html>
