@@ -133,7 +133,7 @@
                camera.aspect = window.innerWidth / window.innerHeight;
                camera.updateProjectionMatrix();
                effect.setSize( window.innerWidth, window.innerHeight );
-               if (isFullScreen()) { setCanvasDimensions(); }
+               setCanvasDimensions();
              }
              function setCanvasDimensions() {
                canvasEl.style.width = '100%';
