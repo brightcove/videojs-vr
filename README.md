@@ -1,7 +1,7 @@
 
-# VR
+# Videojs 360 Video Player
 
-A video.js plugin that turns a video element into a HTML5 Panoramic 360 video player. Project video onto different shapes. Optionally supports Oculus Rift.
+A video.js plugin that turns a video element into a HTML5 Panoramic 360 video player.
 
 This is built to work with the Brightcove Player, which includes video.js.
 
@@ -14,27 +14,46 @@ npm install
 npm run serve
 ```
 
-To build:
+### Build files for deployment
+
+Run the following command to build the player. All files will be output to the `/dist` folder. If you are using Brightcove Studio, add `/dist/360-skin.css` and `/dist/player.js` to your custom Brightcove player.
+
 ```
 npm run build
 ```
 
-To test locally, visit localhost:3000/example.html. To test the generated brightcove player, visit localhost:3000/brightcove-player.html.
-
-Host on a HTTP Server that supports byte range requests if you want the seek bar to work (e.g. Apache).
-
-
-## Oculus Rift Support
-This plugin leverages the [webvr-boilerplate](https://github.com/borismus/webvr-boilerplate) project (which in turn uses [webvr-polyfill](https://github.com/borismus/webvr-polyfill) and [three.js](https://github.com/mrdoob/three.js)) to create a 'responsive VR' experience across multiple devices.
-
-Oculus Rift playback requires Firefox Nightly with the WebVR addon, or experimental WebVR-enabled builds of Chromium. Go to [WebVR.info](http://www.webvr.info) for more info.
-
-
-### Build
-Build script requires npm.
-
 ## Examples
-After you have built the project, check out example.html to see VR in action.
+You can view examples locally via `http://localhost:3000` after running `npm run serve`. Alternatively, you can upload the files to a remote web host. Host on a HTTP Server that supports byte range requests if you want the seek bar to work (e.g. Apache).
+
+### index.html
+Uses the Brightcove player with 360 video integration in an iframe.
+
+To use one of your custom players, update the `src` attribute of the iframe.
+
+Supports mp4, m3u8, and videos from your Brightcove catalog.
+
+#### Limitations
+CORS issues with WebGL video playback in IE11 and Safari prevent this approach.
+
+### local.html
+Uses the Brightcove player with 360 video integration to view a video on the local machine. This is the simplest workaround for the limitations of `index.html`.
+
+To use one of your custom players, update the `data-account` and `data-player` attributes of the video element as well as the script `src` URL below the video.
+
+Supports mp4, m3u8, and videos from your Brightcove catalog.
+
+### example.html
+Uses the local 360 video player styles and javascript. This allows you to see your changes immediately at `http://localhost:3000/example.html` when running the player via `npm run serve`.
+
+### xhr-blob.html
+Uses the Brightcove player with 360 video integration to view a video. The video is loaded via XMLHttpRequest to prevent CORS issues in IE11 and Safari.
+
+To use one of your custom players, update the `data-account` and `data-player` attributes of the video element as well as the script `src` URL below the video.
+
+Supports mp4 and m3u8.
+
+#### Limitations
+The video must be fully downloaded before you can begin playback.
 
 ## Credits ##
 
