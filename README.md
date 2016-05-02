@@ -55,7 +55,7 @@ Host on a HTTP Server that supports byte range requests if you want the seek bar
 
 #### localhost:3000/dev.html
 
-Local files only (does not include Brightcove files or CSS)
+Local files only (does not include Brightcove files or CSS). Uses a local video, so works on all browsers.
 
 #### localhost:3000/
 
@@ -63,7 +63,7 @@ Brightcove player loaded via iframe. Works on Chrome, Firefox, Edge. CORS error 
 
 #### localhost:3000/local.html
 
-Brightcove player included in HTML. Default video is local and works on Safari and IE11 (as well as Chrome, Firefox, Safari, IE11).
+Brightcove player included in HTML. Default video is local and works on all browsers.
 
 ####localhost:3000/xhr-blob.html
 
