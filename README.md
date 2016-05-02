@@ -7,7 +7,7 @@ This is built to work with the Brightcove Player, which includes video.js.
 
 ## Functionality and Known Limitations
 
-To create a 360 Brightcove player, include `dist/player.js` and `dist/360-skin.css` in your Brightcove studio player. In the plugins array, include a plugin with title
+To create a 360 Brightcove player, include `https://cdn.rawgit.com/brightcove/videojs-vr/master/dist/player.js` and `https://cdn.rawgit.com/brightcove/videojs-vr/master/dist/360-skin.css` in your Brightcove studio player. In the plugins array, include a plugin with title
 
 ```
 vr
@@ -25,7 +25,7 @@ and a second plugin with title
 listenForChange
 ```
 
-and no options.
+and no options. (Note that the github CDN caches files, so it may take a few hours for updates to display in the player.)
 
 This player can load 360 video that can be controlled via mouse or keyboard. UI features include a 360 video logo play button that fades out on play, and grab and grabbing behavior that is consistent across browsers. Full screen functionality has been tested. The player works without modifications on the most recent versions of Chrome, Firefox and Edge.
 
