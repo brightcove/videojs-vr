@@ -69,6 +69,15 @@ Brightcove player included in HTML. Default video is local and works on Safari a
 
 Brightcove player included in HTML. Video loaded via XMLHTTPRequest. Works on all browsers, but takes longer for large videos if they are not fragmented.
 
+#### localhost:3000/dash.html
+
+MPEG DASH integration via VideoJS Dash using local files only (does not include Brightcove files or CSS). You may need to update the video source to a .mpd fragmented for MPEG DASH.
+
+#### localhost:3000/dash-xhr-experimental.html
+
+Building on dash.html using XHR and MSE to load the video into a SourceBuffer. Currently not functional.
+
+
 ## Video Processing
 Install ffmpeg
 ```
