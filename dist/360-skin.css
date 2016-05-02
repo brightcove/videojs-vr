@@ -1,0 +1,65 @@
+/* Cursor grabs video when hovering over or holding down */
+
+.video-js.vjs-has-started canvas {
+  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.png);
+  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.cur), move;
+}
+
+.video-js.vjs-has-started canvas:active {
+  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.png);
+  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.cur), move;
+}
+
+/* Play button is the 360 video icon, fades out in 3 seconds on play */
+
+.video-js .vjs-big-play-button {
+  font-size: 30px;
+  top: 50%;
+  left: 50%;
+  margin: -2.1em 0 0 -2.1em;
+  height: 4.2em;
+  width: 4.2em;
+  background: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/360-video.svg);
+  background-size: contain;
+  -webkit-filter: drop-shadow( -2px -2px 2px rgba(0, 0, 0, 0.5) );
+            filter: drop-shadow( -2px -2px 2px rgba(0, 0, 0, 0.5) );
+  border: none;
+  transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -webkit-transition: opacity 3s ease-in-out;
+  -o-transition: all 0s;
+}
+
+.video-js.vjs-disabled .vjs-big-play-button {
+  display: none;
+}
+
+.video-js.vjs-fullscreen .vjs-big-play-button {
+  margin: -4em 0 0 -4em;
+  height: 8em;
+  width: 8em;
+}
+
+.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus, .video-js .vjs-big-play-button:active, .video-js .vjs-big-play-button:focus, .video-js:active .vjs-big-play-button {
+  background-color: transparent;
+  transition: opacity 3s ease-in-out;
+  -moz-transition: opacity 3s ease-in-out;
+  -webkit-transition: opacity 3s ease-in-out;
+}
+
+.video-js .vjs-big-play-button:before {
+  content: '';
+}
+
+.vjs-controls-disabled .vjs-big-play-button, .vjs-has-started .vjs-big-play-button, .vjs-using-native-controls .vjs-big-play-button {
+  font-size: 30px;
+  opacity: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* Hide extra full screen button */
+
+.webvr-button[title="Fullscreen mode"] {
+  display: none !important;
+}
