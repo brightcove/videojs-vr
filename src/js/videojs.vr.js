@@ -258,45 +258,6 @@
          }
          addMenu(player.controlBar);
 
-         function initVRControls () {
-             var controlEl = container.getElementsByClassName('vjs-control-bar')[0];
-             var left = vjs.createEl( null, {
-                 className : 'videojs-vr-controls',
-                 innerHTML : '<div></div>',
-                 tabIndex  : 0
-             });
-             var right = vjs.createEl( null, {
-                 className : 'videojs-vr-controls',
-                 innerHTML : '<div></div>',
-                 tabIndex  : 0
-             });
-
-             function addStyle(theEl) {
-                 theEl.style.position = "absolute";
-                 theEl.style.top = "50%";
-                 theEl.style.height = "50px";
-                 theEl.style.width = "30%";
-                 theEl.style.margin = "-25px 0 0 -20%";
-                 return theEl;
-             }
-             left = addStyle(left);
-             left.style.left = "35%";
-             right = addStyle(right);
-             right.style.left = "75%";
-
-             //copy controlEl
-             var controlElRight = new vjs.getComponent('ControlBar')(player, {name: 'controlBar'});
-             addMenu(controlElRight);
-
-             //insert nodes into left and right
-             left.insertBefore(controlEl, left.firstChild);
-             right.insertBefore(controlElRight.el(), right.firstChild);
-
-             //insert left and right nodes into DOM
-             container.insertBefore(left, container.firstChild);
-             container.insertBefore(right, container.firstChild);
-         }
-
          return {
              changeProjection: changeProjection
          };
