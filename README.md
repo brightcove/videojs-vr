@@ -11,7 +11,11 @@ To create a 360 Brightcove player, include `dist/player.js` and `dist/360-skin.c
 
 This player can load 360 video that can be controlled via mouse or keyboard. UI features include a 360 video logo play button that fades out on play, and grab and grabbing behavior that is consistent across browsers. Full screen functionality has been tested. The player works without modifications on the most recent versions of Chrome, Firefox and Edge.
 
-Safari and IE11 have Cross Origin Request (CORS) bugs when using video and WebGL (https://bugs.webkit.org/show_bug.cgi?id=135379). This player will work when the video is loaded from the same domain as the player (see localhost:3000/local.html) or if it is loaded via XMLHTTPRequest (XHR). For XHR, video will need to be fragmented to load with buffering. We have tested using video fragments with Media Source Extensions and run into CORS issues, but that approach may work with the correct fragmentation configuration.
+Safari and IE11 have Cross Origin Request (CORS) bugs when using video and WebGL.
+
+This player will work when the video is loaded from the same domain as the player (see localhost:3000/local.html) or if it is loaded via XMLHTTPRequest (XHR). For XHR, video will need to be fragmented to load with buffering. We have tested using video fragments with Media Source Extensions and run into CORS issues, but that approach may work with the correct fragmentation configuration.
+
+The Safari and IE11 browser bugs are recorded at https://bugs.webkit.org/show_bug.cgi?id=135379 and https://msdn.microsoft.com/en-us/library/dn302435(v=vs.85).aspx (scroll to Exceptions)
 
 ## Getting Started
 
