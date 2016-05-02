@@ -103,6 +103,7 @@ Load `stream.mpd` into the player to use MPEG DASH.
 This project is a conglomeration of a few amazing open source libraries.
 
 * [VideoJS](http://www.videojs.com)
+* [VideoJS DASH](https://github.com/videojs/videojs-contrib-dash)
 * [Three.js](http://threejs.org)
 * [webvr-boilerplate](https://github.com/borismus/webvr-boilerplate)
 * [webvr-polyfill](https://github.com/borismus/webvr-polyfill)
