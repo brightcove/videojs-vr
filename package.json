@@ -28,6 +28,7 @@
     "build-css": "browserify -g browserify-css ./src/js/player-skin.js -o ./dist/player-skin.js",
     "build": "npm run build-js & npm run build-css",
     "copy-videojs": "cp ./node_modules/video.js/dist/video.js ./dist/",
+    "postinstall": "npm run copy-videojs & npm run build",
     "serve-no-min": "npm run watch-js-no-min & npm run watch-css & nodemon ./server.js",
     "serve": "npm run watch & nodemon ./server.js"
   },

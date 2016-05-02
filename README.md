@@ -11,13 +11,12 @@ To test, make sure you have npm installed, and run:
 
 ```
 npm install
-npm run copy-videojs
 npm run serve
 ```
 
 To build:
 ```
-npm run build (and npm run copy-videojs if not done previously)
+npm run build
 ```
 
 To test locally, visit localhost:3000/example.html. To test the generated brightcove player, visit localhost:3000/brightcove-player.html.
