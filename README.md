@@ -127,7 +127,7 @@ Load `stream.mpd` into the player to use MPEG DASH.
 
 ## Github Pages
 
-To use github pages to host the demo files, visit github.com with a Brightcove account, checkout the `gh-pages` branch, click on settings and click 'Launch automatic page generator' (https://pages.github.com/). The demo pages should be available at http://brightcove.github.io/videojs-vr/.
+The demo files are hosted at http://brightcove.github.io/videojs-vr/.
 
 ## Credits ##
 
