@@ -53,13 +53,13 @@ To test locally, visit localhost:3000/dev.html. To test the generated brightcove
 
 Host on a HTTP Server that supports byte range requests if you want the seek bar to work (e.g. Apache).
 
+## Github Pages
+
+The demo files are hosted at http://brightcove.github.io/videojs-vr/. Merge changes into the gh-pages branch to see them on github pages.
+
 ## Testing
 
-#### localhost:3000/dev.html
-
-Local files only (does not include Brightcove files or CSS). Uses a local video, so works on all browsers.
-
-#### localhost:3000/
+#### index.html
 
 Brightcove player loaded via iframe. Works on Chrome, Firefox, Edge. CORS error on Safari and IE11. To use your own player, replace the iframe with your player's iframe. This will look like
 
@@ -67,7 +67,11 @@ Brightcove player loaded via iframe. Works on Chrome, Firefox, Edge. CORS error 
 <iframe src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.html" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
 ```
 
-#### localhost:3000/local.html
+#### dev.html
+
+Local files only (does not include Brightcove files or CSS). Uses a local video, so works on all browsers.
+
+#### local.html
 
 Brightcove player included in HTML. Default video is local and works on all browsers. If a client is using this player and wants a poster image, it can be added as a `poster` attribute on the video tag. To use your own player, replace the video and script tag with your player's own. They will look like
 
@@ -82,15 +86,15 @@ style="width: 640px; height: 360px;"></video>
 <script src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.min.js"></script>
 ```
 
-####localhost:3000/xhr-blob.html
+####  xhr-blob.html
 
 Brightcove player included in HTML. Video loaded via XMLHTTPRequest. Works on all browsers, but takes longer for large videos if they are not fragmented. To use your own player follow the instructions for the local page (above).
 
-#### localhost:3000/dash.html
+####  dash.html
 
 MPEG DASH integration via VideoJS Dash using local files only (does not include Brightcove files or CSS). You may need to update the video source to a .mpd fragmented for MPEG DASH.
 
-#### localhost:3000/dash-xhr-experimental.html
+####  dash-xhr-experimental.html
 
 Building on dash.html using XHR and MSE to load the video into a SourceBuffer. Currently not functional.
 
@@ -141,10 +145,6 @@ output
 ```
 
 Load `stream.mpd` into the player to use MPEG DASH.
-
-## Github Pages
-
-The demo files are hosted at http://brightcove.github.io/videojs-vr/. Remember to merge changes into the gh-pages branch to see changes.
 
 ## Credits ##
 
