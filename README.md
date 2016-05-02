@@ -33,6 +33,8 @@ Safari and IE11 have Cross Origin Request (CORS) bugs when using video and WebGL
 
 The Safari and IE11 browser bugs are recorded at https://bugs.webkit.org/show_bug.cgi?id=135379 and https://msdn.microsoft.com/en-us/library/dn302435(v=vs.85).aspx (scroll to Exceptions)
 
+The WebVRPolyfill library enables mouse and keyboard controls on the video from any part of the page (including outside of the video) by default. To override this behavior, so the controls only work within the video element, we have created a fork with a fix at github.com/arilaen/webvr-polyfill. Feel free to make another fork or use WebVRPolyfill directly if they fix this issue (https://github.com/borismus/webvr-polyfill/issues/90).
+
 ## Getting Started
 
 To test, make sure you have npm installed, and run:
