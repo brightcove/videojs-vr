@@ -129,7 +129,7 @@ Load `stream.mpd` into the player to use MPEG DASH.
 
 ## Github Pages
 
-The demo files are hosted at http://brightcove.github.io/videojs-vr/.
+The demo files are hosted at http://brightcove.github.io/videojs-vr/. Remember to merge changes into the gh-pages branch to see changes.
 
 ## Credits ##
 
