@@ -122,29 +122,6 @@
 
              container.insertBefore(renderedCanvas, container.firstChild);
              videoEl.style.display = "none";
-             var initialWidth = videoEl.style.width;
-             var initialHeight = videoEl.style.height;
-             var videoJsEl = document.getElementsByClassName('video-js')[0];
-             var canvasEl = document.getElementsByTagName('canvas')[0];
-             canvasEl.style.width = initialWidth;
-             canvasEl.style.height = initialHeight;
-             // Handle window resizes
-             function onWindowResize() {
-               camera.aspect = window.innerWidth / window.innerHeight;
-               camera.updateProjectionMatrix();
-               effect.setSize( window.innerWidth, window.innerHeight );
-             }
-             function setCanvasDimensions() {
-               canvasEl.style.width = '100%';
-               canvasEl.style.height = '100%';
-             }
-
-            // Full screen resizing bug workaround (when pressing the browser full screen button)
-            window.addEventListener('fullscreenchange', function() {
-              setTimeout(setCanvasDimensions, 1000);
-            });
-
- 			      window.addEventListener('resize', onWindowResize, false);
 
              (function animate() {
                  if ( videoEl.readyState === videoEl.HAVE_ENOUGH_DATA ) {
