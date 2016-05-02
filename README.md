@@ -61,15 +61,30 @@ Local files only (does not include Brightcove files or CSS). Uses a local video,
 
 #### localhost:3000/
 
-Brightcove player loaded via iframe. Works on Chrome, Firefox, Edge. CORS error on Safari and IE11.
+Brightcove player loaded via iframe. Works on Chrome, Firefox, Edge. CORS error on Safari and IE11. To use your own player, replace the iframe with your player's iframe. This will look like
+
+```
+<iframe src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.html" allowfullscreen webkitallowfullscreen mozallowfullscreen style="width: 640px; height: 360px;"></iframe>
+```
 
 #### localhost:3000/local.html
 
-Brightcove player included in HTML. Default video is local and works on all browsers.
+Brightcove player included in HTML. Default video is local and works on all browsers. If a client is using this player and wants a poster image, it can be added as a `poster` attribute on the video tag. To use your own player, replace the video and script tag with your player's own. They will look like
+
+```
+<video data-account="4846977590001"
+data-player="rklMmCdR"
+data-embed="default"
+class="video-js"
+poster="./assets/localvideoposter.png"
+controls
+style="width: 640px; height: 360px;"></video>
+<script src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.min.js"></script>
+```
 
 ####localhost:3000/xhr-blob.html
 
-Brightcove player included in HTML. Video loaded via XMLHTTPRequest. Works on all browsers, but takes longer for large videos if they are not fragmented.
+Brightcove player included in HTML. Video loaded via XMLHTTPRequest. Works on all browsers, but takes longer for large videos if they are not fragmented. To use your own player follow the instructions for the local page (above).
 
 #### localhost:3000/dash.html
 
