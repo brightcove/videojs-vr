@@ -26,7 +26,7 @@
     "build-js": "browserify ./src/js/player.js -d -p [minifyify --no-map] -o ./dist/player.js",
     "build-js-no-min": "browserify ./src/js/player.js -o ./dist/player.full.js",
     "build-css": "browserify -g browserify-css ./src/js/player-skin.js -o ./dist/player-skin.js & npm run copy-css",
-    "build": "npm run copy-css & npm run build-js & npm run build-css",
+    "build": "npm run build-js & npm run build-css",
     "copy-videojs": "cp ./node_modules/video.js/dist/video.js ./dist/",
     "copy-css": "cpx ./src/css/360-skin.css ./dist/",
     "copy-dashjs": "cp ./node_modules/dashjs/dist/dash.all.min.js ./dist/",
