@@ -1,9 +1,8 @@
 /* Cursor grabs video when hovering over or holding down */
 
-.video-js:vjs-fullscreen canvas {
-  display: block;
-  width:100%;
-  height: 100%;
+.video-js canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .video-js.vjs-has-started canvas {
