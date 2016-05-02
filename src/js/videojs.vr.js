@@ -142,6 +142,7 @@
              function isFullScreen() {
                return !(!window.screenTop && !window.screenY) && videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') === -1;
              }
+             window.addEventListener('fullscreenchange', setCanvasDimensions, false);
 
  			      window.addEventListener('resize', onWindowResize, false);
 
