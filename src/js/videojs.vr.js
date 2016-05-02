@@ -122,25 +122,11 @@
 
              container.insertBefore(renderedCanvas, container.firstChild);
              videoEl.style.display = "none";
-             var initialWidth = videoEl.style.width;
-             var initialHeight = videoEl.style.height;
-             var videoJsEl = document.getElementsByClassName('video-js')[0];
-             var canvasEl = document.getElementsByTagName('canvas')[0];
-             canvasEl.style.width = initialWidth;
-             canvasEl.style.height = initialHeight;
              // Handle window resizes
              function onWindowResize() {
                camera.aspect = window.innerWidth / window.innerHeight;
                camera.updateProjectionMatrix();
                effect.setSize( window.innerWidth, window.innerHeight );
-               setCanvasDimensions();
-             }
-             function setCanvasDimensions() {
-               canvasEl.style.width = '100%';
-               canvasEl.style.height = '100%';
-             }
-             function isFullScreen() {
-               return !(!window.screenTop && !window.screenY) && videoJsEl.getAttribute('class').indexOf('vjs-fullscreen') === -1;
              }
 
  			      window.addEventListener('resize', onWindowResize, false);
