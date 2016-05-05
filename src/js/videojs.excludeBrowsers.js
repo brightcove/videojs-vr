@@ -31,12 +31,15 @@ module.exports = function(vjs) {
   }
   vjs.plugin('excludeBrowsers', function(browsers) {
     var usingExcludedBrowser = false;
+    console.log('Exclude browsers plugin!', ua);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
         usingExcludedBrowser = true;
       }
     });
+    console.log(usintExcludedBrowser);
+    console.log(videoElem);
     if (usingExcludedBrowser) {
       videoElem.setAttribute('src', '');
       setBrowserErrorText();
