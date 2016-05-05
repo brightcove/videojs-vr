@@ -24,8 +24,7 @@ module.exports = function(vjs) {
        window.setTimeout(setBrowserErrorText, 50);
     } else {
       errorModal.innerHTML = 'To view this video, upgrade to a web browser that '+
-        '<a href="https://www.facebook.com/help/851697264925946" target="_blank">'+
-        'supports 360 video.</a>';
+        'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.';
       videoElem.style.display = 'block'; //Show poster image
     }
   }
