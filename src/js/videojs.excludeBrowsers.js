@@ -38,7 +38,7 @@ module.exports = function(vjs) {
         usingExcludedBrowser = true;
       }
     });
-    console.log(usintExcludedBrowser);
+    console.log(usingExcludedBrowser);
     console.log(videoElem);
     if (usingExcludedBrowser) {
       videoElem.setAttribute('src', '');
