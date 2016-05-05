@@ -6,25 +6,25 @@
 }
 
 .video-js.vjs-has-started canvas {
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.png);
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grab.cur), move;
+  cursor: url(http://cdn.rawgit.com/brightcove/videojs-vr/master/assets/grab.png);
+  cursor: url(http://cdn.rawgit.com/brightcove/videojs-vr/master/assets/grab.cur), move;
 }
 
 .video-js.vjs-has-started canvas:active {
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.png);
-  cursor: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/grabbing.cur), move;
+  cursor: url(http://cdn.rawgit.com/brightcove/videojs-vr/master/assets/grabbing.png);
+  cursor: url(http://cdn.rawgit.com/brightcove/videojs-vr/master/assets/grabbing.cur), move;
 }
 
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
-.video-js .vjs-big-play-button {
+.video-js:not(.vjs-error):not(.vjs-disabled) .vjs-big-play-button {
   font-size: 30px;
   top: 50%;
   left: 50%;
   margin: -2.1em 0 0 -2.1em;
   height: 4.2em;
   width: 4.2em;
-  background: url(http://brightcove360.s3-website-us-east-1.amazonaws.com/assets/360-video.svg);
+  background: url(http://cdn.rawgit.com/brightcove/videojs-vr/master/assets/360-video.svg);
   background-size: contain;
   -webkit-filter: drop-shadow( -2px -2px 2px rgba(0, 0, 0, 0.5) );
             filter: drop-shadow( -2px -2px 2px rgba(0, 0, 0, 0.5) );
@@ -32,11 +32,11 @@
   transition: opacity 3s ease-in-out;
   -moz-transition: opacity 3s ease-in-out;
   -webkit-transition: opacity 3s ease-in-out;
-  -o-transition: all 0s;
+  -o-transition: opacity 3s ease-in;
 }
 
-.video-js.vjs-disabled .vjs-big-play-button {
-  display: none;
+.video-js.vjs-disabled .vjs-big-play-button, .videojs.vjs-error .vjs-big-play-button {
+  border: none;
 }
 
 .video-js.vjs-fullscreen .vjs-big-play-button {

@@ -17,7 +17,7 @@
 
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
-.video-js .vjs-big-play-button {
+.video-js:not(.vjs-error):not(.vjs-disabled) .vjs-big-play-button {
   font-size: 30px;
   top: 50%;
   left: 50%;
@@ -32,11 +32,14 @@
   transition: opacity 3s ease-in-out;
   -moz-transition: opacity 3s ease-in-out;
   -webkit-transition: opacity 3s ease-in-out;
-  -o-transition: all 0s;
+  -o-transition: opacity 3s ease-in;
 }
 
-.video-js.vjs-disabled .vjs-big-play-button {
-  display: none;
+.video-js.vjs-disabled .vjs-big-play-button, .videojs.vjs-error .vjs-big-play-button {
+  -moz-transition: none !important;
+  -webkit-transition: none !important;
+  -o-transition: opacity 0 ease-in !important;
+  transition: none !important;
 }
 
 .video-js.vjs-fullscreen .vjs-big-play-button {
