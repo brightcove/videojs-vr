@@ -28,7 +28,8 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      myPlayer.error({code:'5'});
+      videoElem.setAttribute('src', '');
+      myPlayer.error({code:'-5'});
       videoElem.style.display = 'block';
     }
   });
