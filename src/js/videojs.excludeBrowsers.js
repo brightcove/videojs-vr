@@ -31,7 +31,7 @@ module.exports = function(vjs) {
   vjs.plugin('excludeBrowsers', function(options) {
     var usingExcludedBrowser = false;
     browsers = (options && options.browsers) ? options.browsers : [];
-    console.log('Excluded browser list', browsers);
+    console.log('Excluded browser list:', browsers);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
