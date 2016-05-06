@@ -18,7 +18,6 @@ module.exports = function(vjs) {
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
   function setBrowserError() {
-    videoElem.setAttribute('src', '');
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
     console.log(errorModal);
@@ -41,7 +40,15 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      setBrowserError();
+      var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) { // Make sure source does not get set again
+          videoElem.setAttribute('src', '');
+          setBrowserError();
+        });
+      });
+      observer.observe(videoElem, { attributes: true });
+      videoElem.setAttribute('src', '');
     }
   });
 };
