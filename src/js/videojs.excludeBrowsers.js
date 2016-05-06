@@ -17,16 +17,16 @@ module.exports = function(vjs) {
     var uaLowerCase = ua.toLowerCase();
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
-  function setBrowserError() {
-    videoElem.setAttribute('src', '');
-    videoElem.setAttribute('preload', 'none');
-    this.error({code:'-5'});
-    videoElem.style.display = 'block';
-  }
   vjs.plugin('excludeBrowsers', function(options) {
     var myPlayer = this;
     var usingExcludedBrowser = false;
     browsers = (options && options.browsers) ? options.browsers : [];
+    function setBrowserError() {
+      videoElem.setAttribute('src', '');
+      videoElem.setAttribute('preload', 'none');
+      myPlayer.error({code:'-5'});
+      videoElem.style.display = 'block';
+    }
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
@@ -35,8 +35,8 @@ module.exports = function(vjs) {
     });
     if (usingExcludedBrowser) {
       setBrowserError();
-      myPlayer.on('loaddata', setBrowserError.bind(myPlayer));
-      myPlayer.on('loadmetadata', setBrowserError.bind(myPlayer));
+      myPlayer.on('loaddata', setBrowserError);
+      myPlayer.on('loadmetadata', setBrowserError);
     }
   });
 };
