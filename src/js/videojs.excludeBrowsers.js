@@ -24,7 +24,7 @@ module.exports = function(vjs) {
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
     if (!errorModal.innerHTML) {
-       window.setTimeout(setBrowserError, 50);
+       window.setTimeout(setBrowserError, 200);
     } else {
       errorModal.innerHTML = 'To view this video, upgrade to a web browser that '+
         'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.';
