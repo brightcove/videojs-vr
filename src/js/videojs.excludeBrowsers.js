@@ -48,6 +48,12 @@ module.exports = function(vjs) {
       myPlayer.on('loadstart', function() {
         setBrowserError();
       }, true);
+      myPlayer.on('loadedmetadata', function() {
+        setBrowserError();
+      }, true);
+      myPlayer.on('loadeddata', function() {
+        setBrowserError();
+      }, true);
     }
   });
 };
