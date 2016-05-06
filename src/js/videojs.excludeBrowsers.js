@@ -40,15 +40,8 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver;
-      var observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(mutation) { // Make sure source does not get set again
-          videoElem.setAttribute('src', '');
-          setBrowserError();
-        });
-      });
-      observer.observe(videoElem, { attributes: true });
       videoElem.setAttribute('src', '');
+      setBrowserError();
     }
   });
 };
