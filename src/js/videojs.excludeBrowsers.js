@@ -28,7 +28,7 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      myPlayer.error({code:'4'});
+      myPlayer.error({code:'5'});
       videoElem.style.display = 'block';
     }
   });
