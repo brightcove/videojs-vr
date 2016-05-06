@@ -31,15 +31,17 @@
       } else if (videoUrl.split('?')[0].endsWith('.mp4')){
        type = "video/mp4";
       }
-      if (isNaN(videoUrl)) { // treat the input as a videoId
-        myPlayer.src({
-          src: videoUrl,
-          type: type
-        });
-      } else {
-         myPlayer.catalog.getVideo(videoUrl, function(error, video) {
-           myPlayer.catalog.load(video);
-         });
+      if (!myPlayer.usingExcludedBrowser) {
+        if (isNaN(videoUrl)) { // treat the input as a videoId
+          myPlayer.src({
+            src: videoUrl,
+            type: type
+          });
+        } else {
+           myPlayer.catalog.getVideo(videoUrl, function(error, video) {
+             myPlayer.catalog.load(video);
+           });
+        }
       }
     }
     updateInPage();

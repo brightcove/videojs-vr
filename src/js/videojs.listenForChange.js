@@ -2,7 +2,7 @@ module.exports = function(vjs) {
   vjs.plugin('listenForChange', function() {
     var myPlayer = this;
     function changeVideoFunc(evt) {
-      if (evt.data.command === "changeVideo") {
+      if (!vjs.usingExcludedBrowser && evt.data.command === "changeVideo") {
         if (evt.data.type === "id") {
           myPlayer.catalog.getVideo(evt.data.src, function(error, video) {
             myPlayer.catalog.load(video);

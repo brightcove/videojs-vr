@@ -23,11 +23,9 @@ module.exports = function(vjs) {
     }
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
-    console.log(errorModal);
     if (!errorModal.innerHTML) {
        window.setTimeout(setBrowserError, 50);
     } else {
-      console.log('CHANGING INNER HTML OF MODAL');
       errorModal.innerHTML = 'To view this video, upgrade to a web browser that '+
         'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.';
       videoElem.style.display = 'block'; //Show poster image
@@ -43,6 +41,7 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
+      vjs.usingExcludedBrowser = usingExcludedBrowser;
       videoElem.setAttribute('src', '');
       setBrowserError();
     }
