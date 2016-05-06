@@ -71,3 +71,9 @@
 .webvr-button[title="Fullscreen mode"] {
   display: none !important;
 }
+
+/* Position error message below top text */
+
+.vjs-error .vjs-error-display .vjs-modal-dialog-content {
+  margin-top: 30px;
+}

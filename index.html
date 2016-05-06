@@ -7,7 +7,7 @@
 </head>
 <body>
   <iframe src="//players.brightcove.net/4846977590001/rklMmCdR_default/index.html?videoId=4852147038001"
-  allowfullscreen 
+  allowfullscreen
   webkitallowfullscreen
   mozallowfullscreen
   style="width: 640px; height: 360px;"></iframe>
@@ -22,7 +22,7 @@
     var win;
     document.getElementsByTagName('iframe')[0].onload = function() {
         win = document.querySelector("iframe").contentWindow;
-        updateSource();
+        //updateSource();
     };
     function updateSource() {
       if (win) {
