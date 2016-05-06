@@ -17,6 +17,12 @@ module.exports = function(vjs) {
     var uaLowerCase = ua.toLowerCase();
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
+  function setBrowserError() {
+    videoElem.setAttribute('src', '');
+    videoElem.setAttribute('preload', 'none');
+    this.error({code:'-5'});
+    videoElem.style.display = 'block';
+  }
   vjs.plugin('excludeBrowsers', function(options) {
     var myPlayer = this;
     var usingExcludedBrowser = false;
@@ -28,10 +34,9 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      videoElem.setAttribute('src', '');
-      videoElem.setAttribute('preload', 'none');
-      myPlayer.error({code:'-5'});
-      videoElem.style.display = 'block';
+      setBrowserError();
+      myPlayer.on('loaddata', setBrowserError.bind(myPlayer));
+      myPlayer.on('loadmetadata', setBrowserError.bind(myPlayer));
     }
   });
 };
