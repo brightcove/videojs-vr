@@ -17,21 +17,8 @@ module.exports = function(vjs) {
     var uaLowerCase = ua.toLowerCase();
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
-  function setBrowserError() {
-    if (videoElem.getAttribute('src')) {
-      videoElem.setAttribute('src', '');
-    }
-    var errorModal = document.getElementsByClassName('vjs-error-display')[0]
-      .getElementsByClassName('vjs-modal-dialog-content')[0];
-    if (window.readyState === 'loading' || !errorModal.innerHTML) {
-       window.setTimeout(setBrowserError, 50);
-    } else {
-      errorModal.innerHTML = 'To view this video, upgrade to a web browser that '+
-        'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.';
-      videoElem.style.display = 'block'; //Show poster image
-    }
-  }
   vjs.plugin('excludeBrowsers', function(options) {
+    var myPlayer = this;
     var usingExcludedBrowser = false;
     browsers = (options && options.browsers) ? options.browsers : [];
     browsers.forEach(function(browser) {
@@ -41,19 +28,8 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      var myPlayer = this;
-      vjs.usingExcludedBrowser = usingExcludedBrowser;
-      videoElem.setAttribute('src', '');
-      setBrowserError();
-      myPlayer.on('loadstart', function() {
-        setBrowserError();
-      }, true);
-      myPlayer.on('loadedmetadata', function() {
-        setBrowserError();
-      }, true);
-      myPlayer.on('loadeddata', function() {
-        setBrowserError();
-      }, true);
+      myPlayer.error({code:'4'});
+      videoElem.style.display = 'block';
     }
   });
 };
