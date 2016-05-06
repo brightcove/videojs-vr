@@ -18,6 +18,9 @@ module.exports = function(vjs) {
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
   function setBrowserError() {
+    if (videoElem.getAttribute('src')) {
+      videoElem.setAttribute('src', '');
+    }
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
     console.log(errorModal);
