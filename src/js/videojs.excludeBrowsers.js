@@ -41,9 +41,13 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
+      var myPlayer = this;
       vjs.usingExcludedBrowser = usingExcludedBrowser;
       videoElem.setAttribute('src', '');
       setBrowserError();
+      myPlayer.on('loadstart', function() {
+        setBrowserError();
+      }, true);
     }
   });
 };
