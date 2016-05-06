@@ -29,6 +29,7 @@ module.exports = function(vjs) {
     });
     if (usingExcludedBrowser) {
       videoElem.setAttribute('src', '');
+      videoElem.setAttribute('preload', 'none');
       myPlayer.error({code:'-5'});
       videoElem.style.display = 'block';
     }
