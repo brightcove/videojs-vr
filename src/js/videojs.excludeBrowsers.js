@@ -17,7 +17,8 @@ module.exports = function(vjs) {
     var uaLowerCase = ua.toLowerCase();
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
-  function setBrowserErrorText() {
+  function setBrowserTypeError() {
+    videoElem.setAttribute('src', '');
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
     if (!errorModal.innerHTML) {
@@ -31,18 +32,14 @@ module.exports = function(vjs) {
   vjs.plugin('excludeBrowsers', function(options) {
     var usingExcludedBrowser = false;
     browsers = (options && options.browsers) ? options.browsers : [];
-    console.log('Excluded browser list:', browsers);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
         usingExcludedBrowser = true;
       }
     });
-    console.log(usingExcludedBrowser);
-    console.log(videoElem);
     if (usingExcludedBrowser) {
-      videoElem.setAttribute('src', '');
-      setBrowserErrorText();
+      setBrowserTypeError();
     }
   });
 };
