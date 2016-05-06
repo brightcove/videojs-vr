@@ -17,7 +17,7 @@ module.exports = function(vjs) {
     var uaLowerCase = ua.toLowerCase();
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
-  function setBrowserTypeError() {
+  function setBrowserError() {
     videoElem.setAttribute('src', '');
     var errorModal = document.getElementsByClassName('vjs-error-display')[0]
       .getElementsByClassName('vjs-modal-dialog-content')[0];
@@ -39,7 +39,7 @@ module.exports = function(vjs) {
       }
     });
     if (usingExcludedBrowser) {
-      setBrowserTypeError();
+      setBrowserError();
     }
   });
 };
