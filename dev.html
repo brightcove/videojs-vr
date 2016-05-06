@@ -16,7 +16,7 @@
   <script src="./dist/player.js"></script>
   <script>
   videojs( 'video-container').vr({projection: "Sphere"})
-  videojs( 'video-container').excludeBrowsers(['safari', 'ie']);
+  videojs( 'video-container').excludeBrowsers({browsers:['safari', 'ie']});
   </script>
 </body>
 </html>

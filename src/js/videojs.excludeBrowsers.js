@@ -28,9 +28,9 @@ module.exports = function(vjs) {
       videoElem.style.display = 'block'; //Show poster image
     }
   }
-  vjs.plugin('excludeBrowsers', function(browsers) {
+  vjs.plugin('excludeBrowsers', function(options) {
     var usingExcludedBrowser = false;
-    browsers = browsers || [];
+    browsers = options && options.browsers ? options.browsers : [];
     console.log('Excluded browsers', browsers);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
