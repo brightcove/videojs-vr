@@ -71,3 +71,7 @@
 .webvr-button[title="Fullscreen mode"] {
   display: none !important;
 }
+
+.vjs-errors-content-container {
+  top: 30px !important;
+}
