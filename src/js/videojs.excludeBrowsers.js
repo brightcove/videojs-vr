@@ -42,7 +42,7 @@ module.exports = function(vjs) {
         videoElem.style.display = 'block';
       });
       //In case iframe delays video loading and prevents error propagation
-      setTimeout(setBrowserError, 2000);
+      setTimeout(setBrowserError, 1000);
     }
   });
 };
