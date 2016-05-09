@@ -24,8 +24,10 @@ module.exports = function(vjs) {
     function setBrowserError() {
       videoElem.setAttribute('src', '');
       videoElem.setAttribute('preload', 'none');
-      myPlayer.error({code:'-5'});
-      videoElem.style.display = 'block';
+      setTimeout(function() {
+        myPlayer.error({code: '-5'});
+        videoElem.style.display = 'block';
+      }, 200);
     }
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
@@ -35,6 +37,7 @@ module.exports = function(vjs) {
     });
     if (usingExcludedBrowser) {
       setBrowserError();
+      myPlayer.on('ready', setBrowserError);
       myPlayer.on('loaddata', setBrowserError);
       myPlayer.on('loadmetadata', setBrowserError);
     }
