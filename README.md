@@ -27,6 +27,35 @@ listenForChange
 
 and no options. (Note that the github CDN caches files, so it may take a few hours for updates to display in the player.)
 
+There are two more plugins for users that want to show an error message on certain browsers (such as IE or Safari):
+
+```
+excludeBrowsers
+```
+
+and an array of strings that can be user agents, safari (for all versions of Safari) or ie (for all versions of IE <= 11):
+```
+['safari', 'ie', 'custom-user-agent-here']
+```
+
+and finally one with title
+
+```
+errors
+```
+
+and an error with code -5 and customizable messages:
+
+```
+{
+  "errors": "-5": {
+    "headline": "360 video is not supported by this browser",
+    "type": "PLAYER_ERR_BROWSER",
+    "message": "To view this video, upgrade to a web browser that supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge."
+  }
+}
+```
+
 This player can load 360 video that can be controlled via mouse or keyboard. UI features include a 360 video logo play button that fades out on play, and grab and grabbing behavior that is consistent across browsers. Full screen functionality has been tested. The player works without modifications on the most recent versions of Chrome, Firefox and Edge.
 
 Safari and IE11 have Cross Origin Request (CORS) bugs when using video and WebGL. This player will work on those browsers when the video is loaded from the same domain as the player (see localhost:3000/local.html) or if it is loaded via XMLHTTPRequest (XHR). For XHR, video will need to be fragmented to load with buffering. We have tested using video fragments with Media Source Extensions and run into CORS issues, but that approach may work with the correct fragmentation configuration.
