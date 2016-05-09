@@ -22,8 +22,10 @@ module.exports = function(vjs) {
     var usingExcludedBrowser = false;
     browsers = (options && options.browsers) ? options.browsers : [];
     function setBrowserError() {
-      videoElem.setAttribute('src', '');
-      videoElem.setAttribute('preload', 'none');
+      if (videoElem.getAttribute('src')) {
+        videoElem.setAttribute('src', '');
+        videoElem.setAttribute('preload', 'none');
+      }
     }
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
