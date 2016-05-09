@@ -44,14 +44,16 @@ and finally one with title
 errors
 ```
 
-and an error with code -5 and customizable messages:
+If you would like to overwrite the default browser error message, add the following plugin with your custom text:
 
 ```
 {
-  "errors": "-5": {
-    "headline": "360 video is not supported by this browser",
-    "type": "PLAYER_ERR_BROWSER",
-    "message": "To view this video, upgrade to a web browser that supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge."
+  "errors": {
+    "4": {
+      "headline": "360 video is not supported by this browser",
+      "type": "PLAYER_ERR_BROWSER",
+      "message": "To view this video, upgrade to a web browser that supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge."
+    }
   }
 }
 ```
