@@ -69,7 +69,7 @@ module.exports = function(vjs) {
     var myPlayer = this;
     var usingExcludedBrowser = false;
     var usingMobile = new MobileDetect(window.navigator.userAgent).mobile();
-    browsers = (options && options.browsers) ? options.browsers : [];
+    browsers = (options && options.browsers) ? options.browsers : ['mobile'];
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
