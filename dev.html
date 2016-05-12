@@ -8,28 +8,16 @@
 <body>
   <script src="./dist/player-skin.js"></script>
   <div id="container">
-    <video class="video-js" id="video-container" width="640" height="360" preload="auto" crossorigin="anonymous" data-setup="{}" controls style="width: 640px; height: 360px;" poster="./assets/localvideoposter.png">
-      <source src="http://www.gannett-cdn.com/360videos/BLUE_ANGELS/BLUEANGELS1920x960xSHORT.mp4" type="video/mp4">
+    <video class="video-js" id="video-container" width="640" height="360" preload="auto" crossorigin="anonymous" controls style="width: 640px; height: 360px;" poster="./assets/localvideoposter.png">
+      <source src="./assets/localvideo.mp4" type="video/mp4">
     </video>
   </div>
   <script src="./dist/video.js"></script>
   <script src="./dist/videojs-errors.js"></script>
-  <script>
-    videojs( 'video-container').errors({
-      "errors": {
-        "4": {
-          headline: '360 video is not supported by this browser',
-          type: "PLAYER_ERR_BROWSER",
-          message: 'To view this video, upgrade to a web browser that '+
-            'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.'
-        }
-      }
-    });
-  </script>
   <script src="./dist/player.js"></script>
   <script>
     videojs( 'video-container').vr({projection: "Sphere"});
-    videojs( 'video-container').excludeBrowsers({browsers:['safari', 'ie']});
+    videojs( 'video-container').excludeBrowsers({browsers:['ie', 'mobile', 'safari']});
   </script>
 </body>
 </html>

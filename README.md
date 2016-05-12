@@ -33,7 +33,7 @@ There are two more plugins for users that want to show an error message on certa
 excludeBrowsers
 ```
 
-and an array of strings that can be user agents, safari (for all versions of Safari) or ie (for all versions of IE <= 11):
+and an array of strings that can be user agents, mobile (for all mobile browsers), safari (for all versions of Safari) or ie (for all versions of IE <= 11):
 ```
 ['safari', 'ie', 'custom-user-agent-here']
 ```
@@ -44,19 +44,7 @@ and finally one with title
 errors
 ```
 
-If you would like to overwrite the default browser error message, add the following plugin with your custom text:
-
-```
-{
-  "errors": {
-    "4": {
-      "headline": "360 video is not supported by this browser",
-      "type": "PLAYER_ERR_BROWSER",
-      "message": "To view this video, upgrade to a web browser that supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge."
-    }
-  }
-}
-```
+The error messages is slightly different for the mobile option. Currently 360 video and VR are not supported by mobile, so if a user agent array is not included, 'mobile' is still excluded by default.
 
 This player can load 360 video that can be controlled via mouse or keyboard. UI features include a 360 video logo play button that fades out on play, and grab and grabbing behavior that is consistent across browsers. Full screen functionality has been tested. The player works without modifications on the most recent versions of Chrome, Firefox and Edge.
 

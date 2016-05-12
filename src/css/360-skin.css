@@ -17,7 +17,7 @@
 
 /* Play button is the 360 video icon, fades out in 3 seconds on play */
 
-.video-js:not(.vjs-error):not(.vjs-disabled) .vjs-big-play-button {
+.video-js:not(.vjs-error):not(.vjs-disabled) button.vjs-big-play-button {
   font-size: 30px;
   top: 50%;
   left: 50%;
@@ -35,20 +35,20 @@
   -o-transition: opacity 3s ease-in;
 }
 
-.video-js.vjs-disabled .vjs-big-play-button, .videojs.vjs-error .vjs-big-play-button {
+.video-js.vjs-disabled button.vjs-big-play-button, .videojs.vjs-error button.vjs-big-play-button {
   -moz-transition: none !important;
   -webkit-transition: none !important;
   -o-transition: opacity 0 ease-in !important;
   transition: none !important;
 }
 
-.video-js.vjs-fullscreen .vjs-big-play-button {
+.video-js.vjs-fullscreen button.vjs-big-play-button {
   margin: -4em 0 0 -4em;
   height: 8em;
   width: 8em;
 }
 
-.video-js:hover .vjs-big-play-button, .video-js .vjs-big-play-button:focus, .video-js .vjs-big-play-button:active, .video-js .vjs-big-play-button:focus, .video-js:active .vjs-big-play-button {
+.video-js:hover button.vjs-big-play-button, .video-js button.vjs-big-play-button:focus, .video-js button.vjs-big-play-button:active, .video-js button.vjs-big-play-button:focus, .video-js:active button.vjs-big-play-button {
   background-color: transparent;
   transition: opacity 3s ease-in-out;
   -moz-transition: opacity 3s ease-in-out;
@@ -59,7 +59,7 @@
   content: '';
 }
 
-.vjs-controls-disabled .vjs-big-play-button, .vjs-has-started .vjs-big-play-button, .vjs-using-native-controls .vjs-big-play-button {
+.vjs-controls-disabled .vjs-big-play-button, .vjs-has-started button.vjs-big-play-button {
   font-size: 30px;
   opacity: 0;
   display: block;
@@ -74,4 +74,18 @@
 
 .vjs-errors-content-container {
   top: 30px !important;
+}
+
+/* Showing icons and video on mobile */
+
+.video-js.vjs-using-native-controls .vjs-poster {
+	display: block !important;
+}
+
+.video-js.vjs-using-native-controls button.vjs-big-play-button {
+  display: block !important;
+}
+
+.video-js.vjs-using-native-controls.vjs-has-started .vjs-control-bar {
+  display: block !important;
 }
