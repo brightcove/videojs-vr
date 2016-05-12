@@ -19,7 +19,5 @@ var videoElems = document.getElementsByTagName('video');
 if (videoElems.length && videoElems[0].nodeType === 1) {
   videoElems[0].setAttribute('crossorigin', 'anonymous');
   //Use HTML5, not Flash
-  vjs( videoElems[0], { techOrder: ['html5'] });
-  //Make sure controls are enabled
-  videoElems[0].setAttribute('controls', 'true');
+  vjs( videoElems[0], { techOrder: ['html5'], controls: true });
 }
