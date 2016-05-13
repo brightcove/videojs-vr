@@ -49,14 +49,12 @@ module.exports = function(vjs) {
     if (type === 'browser') {
       this.errors(browserError);
     } else if (type === 'mobile') {
-      console.log('Mobile!');
       this.errors(mobileError);
     }
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
     videoEl.setAttribute('preload', 'none');
     setBrowserError();
-    console.log('Set error!');
     this.on('ready', setBrowserError);
     this.on('loaddata', setBrowserError);
     this.on('loadmetadata', setBrowserError);
@@ -65,12 +63,16 @@ module.exports = function(vjs) {
     });
     //In case iframe delays video loading and prevents error propagation
     setTimeout(setBrowserError, 1000);
+    setTimeout(setBrowserError, 2000);
+    setTimeout(setBrowserError, 3000);
+    setTimeout(setBrowserError, 4000);
   }
   vjs.plugin('excludeBrowsers', function(options) {
     var myPlayer = this;
     var usingExcludedBrowser = false;
     var usingMobile = new MobileDetect(window.navigator.userAgent).mobile();
     browsers = (options && options.browsers) ? options.browsers : ['safari', 'ie', 'mobile'];
+    console.log('Browsers', browsers);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
