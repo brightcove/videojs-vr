@@ -1,13 +1,4 @@
 module.exports = function(vjs) {
-  var mobileError = {
-    "errors": {
-      "4": {
-        headline: '360 video is not supported on mobile',
-        type: "PLAYER_ERR_MOBILE",
-        message: 'Please view this video on a desktop browser.'
-      }
-    }
-  };
   var browserError = {
     "errors": {
       "4": {
@@ -45,12 +36,8 @@ module.exports = function(vjs) {
   function setBrowserError() {
     resetSource();
   }
-  function setError(type) {
-    if (type === 'browser') {
-      this.errors(browserError);
-    } else if (type === 'mobile') {
-      this.errors(mobileError);
-    }
+  function setError() {
+    this.errors(browserError);
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
     videoEl.setAttribute('preload', 'none');
@@ -79,10 +66,8 @@ module.exports = function(vjs) {
         usingExcludedBrowser = true;
       }
     });
-    if (usingMobile && browsers.indexOf('mobile') >= -1) {
-      setError.call(myPlayer, 'mobile');
-    } else if (usingExcludedBrowser) {
-      setError.call(myPlayer, 'browser');
+    if ((usingMobile && browsers.indexOf('mobile') >= -1) || usingExcludedBrowser) {
+      setError.call(myPlayer);
     }
   });
 };
