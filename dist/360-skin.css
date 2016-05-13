@@ -89,3 +89,9 @@
 .video-js.vjs-using-native-controls.vjs-has-started .vjs-control-bar {
   display: block !important;
 }
+
+/* Default height when previewing player */
+
+.video-js {
+  height: 360px;
+}
