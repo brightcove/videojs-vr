@@ -28,6 +28,7 @@ module.exports = function(vjs) {
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
   function resetSource() {
+    console.log('Resetting source!', videoElem.getAttribute('src'));
     if (videoElem.getAttribute('src')) {
       videoElem.setAttribute('src', '');
       videoElem.setAttribute('preload', 'none');
