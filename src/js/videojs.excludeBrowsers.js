@@ -28,7 +28,6 @@ module.exports = function(vjs) {
   }
   function resetSource() {
     var videoElem = document.getElementsByTagName('video')[0];
-    console.log('Resetting source!', videoElem.getAttribute('src'));
     if (videoElem.getAttribute('src')) {
       videoElem.setAttribute('src', '');
       videoElem.setAttribute('preload', 'none');
