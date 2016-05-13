@@ -43,6 +43,7 @@ module.exports = function(vjs) {
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
     videoEl.setAttribute('preload', 'none');
+    console.log('Setting browser error');
     setBrowserError();
     this.on('ready', setBrowserError);
     this.on('loaddata', setBrowserError);
