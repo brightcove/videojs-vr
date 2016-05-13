@@ -11,10 +11,9 @@ module.exports = function(vjs) {
   var browserError = {
     "errors": {
       "4": {
-        headline: '360 video is not supported by this browser',
+        headline: '360 video is not supported on this browser',
         type: "PLAYER_ERR_BROWSER",
-        message: 'To view this video, upgrade to a web browser that '+
-          'supports 360 video. Supported browsers include the latest versions of Chrome, Firefox, and Edge.'
+        message: 'To view this video, upgrade to the latest version of Desktop Chrome, Firefox, or Edge.'
       }
     }
   };
@@ -69,7 +68,7 @@ module.exports = function(vjs) {
     var myPlayer = this;
     var usingExcludedBrowser = false;
     var usingMobile = new MobileDetect(window.navigator.userAgent).mobile();
-    browsers = (options && options.browsers) ? options.browsers : ['mobile'];
+    browsers = (options && options.browsers) ? options.browsers : ['safari', 'ie', 'mobile'];
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
