@@ -9,7 +9,6 @@ module.exports = function(vjs) {
     }
   };
   var ua = window.navigator.userAgent;
-  var videoElem = document.getElementsByTagName('video')[0];
   var MobileDetect = require('mobile-detect');
   function detectIE() {
     var msie = ua.indexOf('MSIE ');
@@ -28,6 +27,7 @@ module.exports = function(vjs) {
     return /safari/.test(uaLowerCase) && !/chrome/.test(uaLowerCase);
   }
   function resetSource() {
+    var videoElem = document.getElementsByTagName('video')[0];
     console.log('Resetting source!', videoElem.getAttribute('src'));
     if (videoElem.getAttribute('src')) {
       videoElem.setAttribute('src', '');
@@ -38,17 +38,16 @@ module.exports = function(vjs) {
     resetSource();
   }
   function setError() {
-    console.log('Error!');
     this.errors(browserError);
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
     videoEl.setAttribute('preload', 'none');
-    console.log('Setting browser error');
     setBrowserError();
     this.on('ready', setBrowserError);
     this.on('loaddata', setBrowserError);
     this.on('loadmetadata', setBrowserError);
     this.on('error', function() {
+      var videoElem = document.getElementsByTagName('video')[0];
       videoElem.style.display = 'block';
     });
     //In case iframe delays video loading and prevents error propagation
