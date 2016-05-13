@@ -17,7 +17,10 @@ require('./videojs.listenForChange.js')(vjs);
 //Set crossorigin anonymous attribute on video element
 var videoElems = document.getElementsByTagName('video');
 if (videoElems.length && videoElems[0].nodeType === 1) {
-  videoElems[0].setAttribute('crossorigin', 'anonymous');
+  var videoEl = videoElems[0];
+  videoEl.setAttribute('crossorigin', 'anonymous');
   //Use HTML5, not Flash
-  vjs( videoElems[0], { techOrder: ['html5'], controls: true });
+  vjs( videoEl, { techOrder: ['html5'], controls: true });
+  //Handle mouse escaping canvas
+  require('./mouse-escape-fix.js')();
 }
