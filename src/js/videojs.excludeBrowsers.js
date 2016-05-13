@@ -49,12 +49,14 @@ module.exports = function(vjs) {
     if (type === 'browser') {
       this.errors(browserError);
     } else if (type === 'mobile') {
+      console.log('Mobile!');
       this.errors(mobileError);
     }
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
     videoEl.setAttribute('preload', 'none');
     setBrowserError();
+    console.log('Set error!');
     this.on('ready', setBrowserError);
     this.on('loaddata', setBrowserError);
     this.on('loadmetadata', setBrowserError);
@@ -75,7 +77,7 @@ module.exports = function(vjs) {
         usingExcludedBrowser = true;
       }
     });
-    if (usingMobile && options.browsers.indexOf('mobile') >= -1) {
+    if (usingMobile && browsers.indexOf('mobile') >= -1) {
       setError.call(myPlayer, 'mobile');
     } else if (usingExcludedBrowser) {
       setError.call(myPlayer, 'browser');
