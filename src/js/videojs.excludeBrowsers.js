@@ -37,6 +37,7 @@ module.exports = function(vjs) {
     resetSource();
   }
   function setError() {
+    console.log('Error!');
     this.errors(browserError);
     var videoEl = document.getElementsByTagName('video')[0];
     videoEl.setAttribute('src', '');
@@ -59,7 +60,6 @@ module.exports = function(vjs) {
     var usingExcludedBrowser = false;
     var usingMobile = new MobileDetect(window.navigator.userAgent).mobile();
     browsers = (options && options.browsers) ? options.browsers : ['safari', 'ie', 'mobile'];
-    console.log('Browsers', browsers);
     browsers.forEach(function(browser) {
       if ((browser === 'ie' && detectIE()) || (browser === 'safari' && detectSafari()) ||
         (ua === browser)) {
