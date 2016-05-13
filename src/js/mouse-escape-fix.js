@@ -6,10 +6,8 @@ module.exports = function() {
     mouseDown = true;
   });
   document.addEventListener('mouseup', function() {
-    console.log(mouseDown);
     if (mouseDown) {
       mouseDown = false;
-      console.log('HERE!!!');
       videoJsElem.dispatchEvent(
         new CustomEvent('mouseup')
       );
