@@ -1,5 +1,5 @@
-
-# Brightcove 360 Video Player
+# THIS REPOSITORY IS DEPRECATED, USE: https://github.com/videojs/videojs-vr
+## Brightcove 360 Video Player
 
 A video.js plugin that turns a video element into a HTML5 Panoramic 360 video player. Project video onto different shapes.
 
